@@ -1,5 +1,6 @@
 import { Component, computed, input, output, signal } from '@angular/core';
 import { SafeValue } from '@angular/platform-browser';
+import { ButtonComponent } from "../button/button.component";
 
 export interface Usuario {
   nombre: string;
@@ -63,11 +64,11 @@ export type SelectedChange = {
 }
 
 @Component({
-  selector: 'app-table',
-  standalone: true,
-  imports: [],
-  templateUrl: './table.component.html',
-  styleUrl: './table.component.css'
+    selector: 'app-table',
+    standalone: true,
+    templateUrl: './table.component.html',
+    styleUrl: './table.component.css',
+    imports: [ButtonComponent]
 })
 export class TableComponent {
 

@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ButtonsOptions, CustomItem, HeadTable, SelectOptions, TableComponent } from "./componentes/table/table.component";
+import { ButtonComponent } from "./componentes/button/button.component";
 export interface User{
   nombre: string;
   email: string;
@@ -57,11 +58,10 @@ export const sampleData: TableRow[] = [
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [RouterOutlet, TableComponent]
+    imports: [RouterOutlet, TableComponent, ButtonComponent]
 })
 export class AppComponent {
-  title = 'componentes-personalizados';
-  // headArray = signal<Options>({'nombre': 'Nombre', 'email': 'Email', 'rol': 'Rol'})
+  //#region Table
   headArray = signal<HeadTable[]>([
     {head: 'Nombre', fieldName: 'nombre'},
     {head: 'Email', fieldName: 'email'}, 
@@ -76,7 +76,7 @@ export class AppComponent {
       class: '',
       tooltip: '',
       callback: (ev) => {
-        this.onCallBack(ev)
+        this.onCallBackButton(ev)
       },
     },
     {
@@ -84,7 +84,7 @@ export class AppComponent {
       class: '',
       tooltip: '',
       callback: (ev) => {
-        this.onCallBack(ev)
+        this.onCallBackButton(ev)
       },
     }
   ]
@@ -95,7 +95,6 @@ export class AppComponent {
     callback: (tareaAux) => this.onCallBackSelect(tareaAux)
   })
 
-  // headTable = signal<Options>({'id': 'Id', 'name': 'Name', 'age': 'Age', 'email': 'Email'})
   headTable = signal<HeadTable[]>([
     {head: 'Id', fieldName: 'id'},
     {head: 'Name', fieldName: 'name'}, 
@@ -111,7 +110,7 @@ export class AppComponent {
       class: '',
       tooltip: '',
       callback: (ev) => {
-        this.onCallBack(ev)
+        this.onCallBackButton(ev)
       },
     }]
   })
@@ -120,12 +119,22 @@ export class AppComponent {
     selectKeyValues: 'listado',
     callback: (tareaAux) => this.onCallBackSelect(tareaAux)
   })
+  //#endregion
 
-  protected onCallBack(ev: CustomItem){
+  //#region Button
+  title = signal<string>('Create');
+  class = signal<string>('');
+  //#endregion
+
+  protected onCallBackButton(ev: CustomItem){
     console.log("ev", ev)
   }
 
   protected onCallBackSelect(ev: CustomItem){
     console.log("ev", ev)
+  }
+
+  protected clickButton() {
+    console.log("click", )
   }
 }

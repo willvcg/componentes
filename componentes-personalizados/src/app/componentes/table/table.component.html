@@ -14,7 +14,7 @@
                @switch (head.fieldName) {
                 @case ("buttonsOptions") {
                   @for (button of buttonsOptions()?.buttons; track button) {
-                    <button (click)="onButtonsOptionsClick(item, button)">{{button.title}}</button>                  
+                    <app-button [title]="button.title" [class]="button.class" (click)="onButtonsOptionsClick(item,button)"/>
                   }
                 }
                 @case ("selectsOptions") {
