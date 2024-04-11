@@ -1,4 +1,4 @@
 <app-table [headArray]="headArray()" [gridArray]="gridArray()" [buttonsOptions]="buttonsArray()" [selectOptions]="selectArray()"/>
 <app-table [headArray]="headTable()" [gridArray]="dataTable()" [buttonsOptions]="buttonsTabla()" [selectOptions]="selectTable()"/>
 <hr>
-<app-button [title]="title()" [class]="class()" (click)="clickButton()"/>
+<app-button [title]="title()" [class]="class()" (click)="clickButton()" appTooltip tooltipTitle="This is our tooltip text" placement="right" [delay]="100"/>

@@ -1,1 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
+.ng-tooltip { 
+    position: absolute; 
+    border-radius: 5px;
+    padding: 10px;
+    color: #fff;
+    background-color: #000;
+    opacity: 0; 
+    transition: opacity 0.3s;
+}
+
+.ng-tooltip-show { 
+opacity: 1;
+}

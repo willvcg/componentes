@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ButtonsOptions, CustomItem, HeadTable, SelectOptions, TableComponent } from "./componentes/table/table.component";
 import { ButtonComponent } from "./componentes/button/button.component";
+import { TooltipDirective } from './directives/tooltip.directive';
 export interface User{
   nombre: string;
   email: string;
@@ -58,7 +59,7 @@ export const sampleData: TableRow[] = [
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [RouterOutlet, TableComponent, ButtonComponent]
+    imports: [RouterOutlet, TableComponent, ButtonComponent, TooltipDirective]
 })
 export class AppComponent {
   //#region Table
