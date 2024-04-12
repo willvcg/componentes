@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { ButtonsOptions, CustomItem, HeadTable, SelectOptions, TableComponent } from "./componentes/table/table.component";
 import { ButtonComponent } from "./componentes/button/button.component";
 import { TooltipDirective } from './directives/tooltip.directive';
+import { ModalComponent } from "./componentes/modal/modal.component";
 export interface User{
   nombre: string;
   email: string;
@@ -59,7 +60,7 @@ export const sampleData: TableRow[] = [
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [RouterOutlet, TableComponent, ButtonComponent, TooltipDirective]
+    imports: [RouterOutlet, TableComponent, ButtonComponent, TooltipDirective, ModalComponent]
 })
 export class AppComponent {
   //#region Table
@@ -127,6 +128,10 @@ export class AppComponent {
   class = signal<string>('');
   //#endregion
 
+  //#region Modal
+  showModal = signal(false)
+  //#endregion
+
   protected onCallBackButton(ev: CustomItem){
     console.log("ev", ev)
   }
@@ -137,5 +142,13 @@ export class AppComponent {
 
   protected clickButton() {
     console.log("click", )
+  }
+
+  protected onOkModal(){
+    this.showModal.set(false)
+  }
+
+  protected onCancelModal(){
+    this.showModal.set(false)
   }
 }
