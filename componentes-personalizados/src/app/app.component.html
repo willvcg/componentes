@@ -8,3 +8,8 @@
   <h2>Este es mi modal</h2>
   <p>¡Hola! Este es un modal simple hecho en Angular.</p>
 </app-modal>
+<hr>
+<input type="text" placeholder="Ingrese solo texto con ngModel" appOnlyText [(ngModel)]="text">
+<input type="text" placeholder="Ingrese solo texto" appOnlyText >
+<input type="text" placeholder="Ingrese cualquier valor" >
+{{text}}

@@ -9,7 +9,7 @@ type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right';
 })
 export class TooltipDirective {
 
-  private elementRef = inject(ElementRef)
+  private elementRef: ElementRef<HTMLSpanElement> = inject(ElementRef)
   private document = inject(DOCUMENT);
 
   tooltipTitle = input.required<string>()

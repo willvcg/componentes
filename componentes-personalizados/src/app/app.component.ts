@@ -4,6 +4,8 @@ import { ButtonsOptions, CustomItem, HeadTable, SelectOptions, TableComponent } 
 import { ButtonComponent } from "./componentes/button/button.component";
 import { TooltipDirective } from './directives/tooltip.directive';
 import { ModalComponent } from "./componentes/modal/modal.component";
+import { FormsModule } from '@angular/forms';
+import { OnlyTextDirective } from './directives/only-text.directive';
 export interface User{
   nombre: string;
   email: string;
@@ -60,7 +62,7 @@ export const sampleData: TableRow[] = [
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [RouterOutlet, TableComponent, ButtonComponent, TooltipDirective, ModalComponent]
+    imports: [RouterOutlet, TableComponent, ButtonComponent, TooltipDirective, ModalComponent, FormsModule, OnlyTextDirective]
 })
 export class AppComponent {
   //#region Table
@@ -130,6 +132,10 @@ export class AppComponent {
 
   //#region Modal
   showModal = signal(false)
+  //#endregion
+
+  //#region OnlyText Directive
+  text = ''
   //#endregion
 
   protected onCallBackButton(ev: CustomItem){
