@@ -13,3 +13,10 @@
 <input type="text" placeholder="Ingrese solo texto" appOnlyText >
 <input type="text" placeholder="Ingrese cualquier valor" >
 {{text}}
+<hr>
+<app-input [type]="'text'" [placeholder]="'Ingrese solo texto con ValueAccesor'" [(ngModel)]="inputText" />
+{{inputText}}
+<form [formGroup]="form">
+  <app-input formControlName="inputText"></app-input>
+</form>
+{{form.value | json}}

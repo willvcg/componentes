@@ -4,8 +4,10 @@ import { ButtonsOptions, CustomItem, HeadTable, SelectOptions, TableComponent } 
 import { ButtonComponent } from "./componentes/button/button.component";
 import { TooltipDirective } from './directives/tooltip.directive';
 import { ModalComponent } from "./componentes/modal/modal.component";
-import { FormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OnlyTextDirective } from './directives/only-text.directive';
+import { InputComponent } from './componentes/input/input.component';
+import { JsonPipe } from '@angular/common';
 export interface User{
   nombre: string;
   email: string;
@@ -62,7 +64,7 @@ export const sampleData: TableRow[] = [
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [RouterOutlet, TableComponent, ButtonComponent, TooltipDirective, ModalComponent, FormsModule, OnlyTextDirective]
+    imports: [RouterOutlet, TableComponent, ButtonComponent, TooltipDirective, ModalComponent, FormsModule, OnlyTextDirective, InputComponent, ReactiveFormsModule, JsonPipe]
 })
 export class AppComponent {
   //#region Table
@@ -136,6 +138,13 @@ export class AppComponent {
 
   //#region OnlyText Directive
   text = ''
+  //#endregion
+
+  //#region Input Component
+  inputText = ''
+  form: FormGroup = new FormGroup({
+    inputText: new FormControl('test')
+  });
   //#endregion
 
   protected onCallBackButton(ev: CustomItem){
