@@ -20,3 +20,6 @@
   <app-input formControlName="inputText"></app-input>
 </form>
 {{form.value | json}}
+<hr>
+<input [type]="'text'" [placeholder]="'Ingrese solo numeros'" [(ngModel)]="inputNumber" appNumbersOnly/>
+{{inputNumber}} 

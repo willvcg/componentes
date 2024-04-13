@@ -8,6 +8,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { OnlyTextDirective } from './directives/only-text.directive';
 import { InputComponent } from './componentes/input/input.component';
 import { JsonPipe } from '@angular/common';
+import { NumbersOnlyDirective } from './directives/numbers-only.directive';
 export interface User{
   nombre: string;
   email: string;
@@ -64,7 +65,7 @@ export const sampleData: TableRow[] = [
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [RouterOutlet, TableComponent, ButtonComponent, TooltipDirective, ModalComponent, FormsModule, OnlyTextDirective, InputComponent, ReactiveFormsModule, JsonPipe]
+    imports: [RouterOutlet, TableComponent, ButtonComponent, TooltipDirective, ModalComponent, FormsModule, OnlyTextDirective, InputComponent, ReactiveFormsModule, JsonPipe, NumbersOnlyDirective]
 })
 export class AppComponent {
   //#region Table
@@ -146,6 +147,10 @@ export class AppComponent {
     inputText: new FormControl('test')
   });
   //#endregion
+
+    //#region NumbersOnly Directive
+    inputNumber = ''
+    //#endregion
 
   protected onCallBackButton(ev: CustomItem){
     console.log("ev", ev)
