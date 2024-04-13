@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ButtonsOptions, CustomItem, HeadTable, SelectOptions, TableComponent } from "./componentes/table/table.component";
 import { ButtonComponent } from "./componentes/button/button.component";
@@ -7,9 +7,12 @@ import { ModalComponent } from "./componentes/modal/modal.component";
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OnlyTextDirective } from './directives/only-text.directive';
 import { InputComponent } from './componentes/input/input.component';
-import { JsonPipe } from '@angular/common';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 import { NumbersOnlyDirective } from './directives/numbers-only.directive';
 import { UnderlineDirective } from './directives/underline.directive';
+import { SpinnerComponent } from "./componentes/spinner/spinner.component";
+import {  HttpClientModule } from '@angular/common/http';
+import { SpinnerService } from './services/spinner.service';
 export interface User{
   nombre: string;
   email: string;
@@ -66,9 +69,11 @@ export const sampleData: TableRow[] = [
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [RouterOutlet, TableComponent, ButtonComponent, TooltipDirective, ModalComponent, FormsModule, OnlyTextDirective, InputComponent, ReactiveFormsModule, JsonPipe, NumbersOnlyDirective, UnderlineDirective]
+    imports: [RouterOutlet, TableComponent, ButtonComponent, TooltipDirective, ModalComponent, FormsModule, OnlyTextDirective, InputComponent, ReactiveFormsModule, JsonPipe, NumbersOnlyDirective, UnderlineDirective, SpinnerComponent, AsyncPipe, HttpClientModule]
 })
 export class AppComponent {
+
+  private spinnerService = inject(SpinnerService);
   //#region Table
   headArray = signal<HeadTable[]>([
     {head: 'Nombre', fieldName: 'nombre'},
@@ -177,4 +182,7 @@ export class AppComponent {
   protected onCancelModal(){
     this.showModal.set(false)
   }
+
+  protected onSpinner() {
+    this.spinnerService.show();  }
 }
