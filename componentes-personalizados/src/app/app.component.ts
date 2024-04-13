@@ -9,6 +9,7 @@ import { OnlyTextDirective } from './directives/only-text.directive';
 import { InputComponent } from './componentes/input/input.component';
 import { JsonPipe } from '@angular/common';
 import { NumbersOnlyDirective } from './directives/numbers-only.directive';
+import { UnderlineDirective } from './directives/underline.directive';
 export interface User{
   nombre: string;
   email: string;
@@ -65,7 +66,7 @@ export const sampleData: TableRow[] = [
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [RouterOutlet, TableComponent, ButtonComponent, TooltipDirective, ModalComponent, FormsModule, OnlyTextDirective, InputComponent, ReactiveFormsModule, JsonPipe, NumbersOnlyDirective]
+    imports: [RouterOutlet, TableComponent, ButtonComponent, TooltipDirective, ModalComponent, FormsModule, OnlyTextDirective, InputComponent, ReactiveFormsModule, JsonPipe, NumbersOnlyDirective, UnderlineDirective]
 })
 export class AppComponent {
   //#region Table
@@ -148,9 +149,14 @@ export class AppComponent {
   });
   //#endregion
 
-    //#region NumbersOnly Directive
-    inputNumber = ''
-    //#endregion
+  //#region NumbersOnly Directive
+  inputNumber = ''
+  //#endregion
+
+  //#region NumbersOnly Directive
+  textDirective = signal<string>('Prueba de underline directive')
+  textWithOutDirective = signal<string>('Prueba de underline directive sin underline')
+  //#endregion
 
   protected onCallBackButton(ev: CustomItem){
     console.log("ev", ev)
