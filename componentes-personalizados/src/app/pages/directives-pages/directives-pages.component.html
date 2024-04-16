@@ -1,0 +1,20 @@
+<input
+  type="text"
+  placeholder="Ingrese solo texto con ngModel"
+  appOnlyText
+  [(ngModel)]="text"
+/>
+<input type="text" placeholder="Ingrese solo texto" appOnlyText />
+<input type="text" placeholder="Ingrese cualquier valor" />
+{{ text }}
+<hr />
+<input
+  [type]="'text'"
+  [placeholder]="'Ingrese solo numeros'"
+  [(ngModel)]="inputNumber"
+  appNumbersOnly
+/>
+{{ inputNumber }}
+<hr />
+<p appUnderline>{{ textDirective() }}</p>
+<p>{{ textWithOutDirective() }}</p>

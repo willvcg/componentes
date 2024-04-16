@@ -1,31 +1,6 @@
-<app-table [headArray]="headArray()" [gridArray]="gridArray()" [buttonsOptions]="buttonsArray()" [selectOptions]="selectArray()"/>
-<app-table [headArray]="headTable()" [gridArray]="dataTable()" [buttonsOptions]="buttonsTabla()" [selectOptions]="selectTable()"/>
-<hr>
-<app-button [title]="title()" [class]="class()" (click)="clickButton()" appTooltip tooltipTitle="This is our tooltip text" placement="right" [delay]="100"/>
-<hr>
-<button (click)="showModal.set(true)">Abrir Modal</button>
-<app-modal [showModal]="showModal()" title="Modal" cancelText="Cancelar" okText="Enviar" [closeClickOutside]="false" (onClose)="onCancelModal()" (onOk)="onOkModal()">
-  <h2>Este es mi modal</h2>
-  <p>¡Hola! Este es un modal simple hecho en Angular.</p>
-</app-modal>
-<hr>
-<input type="text" placeholder="Ingrese solo texto con ngModel" appOnlyText [(ngModel)]="text">
-<input type="text" placeholder="Ingrese solo texto" appOnlyText >
-<input type="text" placeholder="Ingrese cualquier valor" >
-{{text}}
-<hr>
-<app-input [type]="'text'" [placeholder]="'Ingrese solo texto con ValueAccesor'" [(ngModel)]="inputText" />
-{{inputText}}
-<form [formGroup]="form">
-  <app-input formControlName="inputText"></app-input>
-</form>
-{{form.value | json}}
-<hr>
-<input [type]="'text'" [placeholder]="'Ingrese solo numeros'" [(ngModel)]="inputNumber" appNumbersOnly/>
-{{inputNumber}} 
-<hr>
-<p appUnderline>{{textDirective()}}</p>
-<p>{{textWithOutDirective()}}</p>
-<hr>
-<button (click)="onSpinner()">Activar spinner</button>
-<app-spinner/>
+<div class="container">
+  <app-sidebar />
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
