@@ -10,3 +10,8 @@
   [buttonsOptions]="buttonsTabla()"
   [selectOptions]="selectTable()"
 />
+
+<app-table [headArray]="headEndpoints()" [gridArray]="gridEndpoints()" />
+<app-table [headArray]="headPokemon()" [gridArray]="gridPokemon()" />
+
+{{ errorMessage }}
