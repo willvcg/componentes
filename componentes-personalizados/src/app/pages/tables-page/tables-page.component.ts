@@ -1,4 +1,5 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { EMPTY, catchError, tap } from 'rxjs';
 import {
   ButtonsOptions,
   CustomItem,
@@ -6,6 +7,10 @@ import {
   SelectOptions,
   TableComponent,
 } from '../../componentes/table/table.component';
+import { Pokemon } from '../../models/pokemon';
+import { SpaceXLaunch } from '../../models/space-x';
+import { PokemonService } from '../../services/entities/pokemon.service';
+import { SpaceXService } from '../../services/entities/space-x.service';
 
 export interface User {
   nombre: string;
@@ -152,6 +157,53 @@ export class TablesPageComponent {
     callback: (tareaAux) => this.onCallBackSelect(tareaAux),
   });
   //#endregion
+
+  //#region SpaceX
+  protected headEndpoints = signal<HeadTable[]>([
+    { head: 'Nombre', fieldName: 'name' },
+    { head: 'Número de vuelo', fieldName: 'flight_number' },
+    { head: 'Hora local', fieldName: 'date_local' },
+  ]);
+  protected gridEndpoints = signal<SpaceXLaunch[]>([]);
+  //#endregion
+
+  //#region Pokemon
+  protected headPokemon = signal<HeadTable[]>([
+    { head: 'Nombre', fieldName: 'name' },
+    { head: 'URL', fieldName: 'url' },
+  ]);
+  protected gridPokemon = signal<Pokemon[]>([]);
+  //#endregion
+
+  private spaceXService = inject(SpaceXService);
+  private pokemonService = inject(PokemonService);
+
+  errorMessage = '';
+  constructor() {
+    this.spaceXService.getLaunchs().subscribe(
+      (data) => {
+        this.gridEndpoints.set(data);
+        console.log(this.gridEndpoints());
+      },
+      (error) => {
+        console.error('Error al obtener los lanzamientos', error);
+      }
+    );
+
+    this.pokemonService
+      .getPokemonsList()
+      .pipe(
+        tap((data) => {
+          this.gridPokemon.set(data.results);
+          console.log(this.gridPokemon());
+        }),
+        catchError((error) => {
+          this.errorMessage = error;
+          return EMPTY;
+        })
+      )
+      .subscribe();
+  }
 
   protected onCallBackButton(ev: CustomItem) {
     console.log('ev', ev);
