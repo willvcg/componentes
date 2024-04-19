@@ -7,7 +7,7 @@ import {
   SelectOptions,
   TableComponent,
 } from '../../componentes/table/table.component';
-import { Pokemon } from '../../models/pokemon';
+import { PokemonList } from '../../models/pokemon';
 import { SpaceXLaunch } from '../../models/space-x';
 import { PokemonService } from '../../services/entities/pokemon.service';
 import { SpaceXService } from '../../services/entities/space-x.service';
@@ -172,7 +172,12 @@ export class TablesPageComponent {
     { head: 'Nombre', fieldName: 'name' },
     { head: 'URL', fieldName: 'url' },
   ]);
-  protected gridPokemon = signal<Pokemon[]>([]);
+  protected gridPokemon = signal<PokemonList>({
+    count: 0,
+    next: '',
+    previous: '',
+    results: [],
+  });
   //#endregion
 
   private spaceXService = inject(SpaceXService);
@@ -194,8 +199,9 @@ export class TablesPageComponent {
       .getPokemonsList()
       .pipe(
         tap((data) => {
-          this.gridPokemon.set(data.results);
+          this.gridPokemon.set(data);
           console.log(this.gridPokemon());
+          console.log(data);
         }),
         catchError((error) => {
           this.errorMessage = error;
@@ -211,5 +217,57 @@ export class TablesPageComponent {
 
   protected onCallBackSelect(ev: CustomItem) {
     console.log('ev', ev);
+  }
+
+  protected onNextPage(nextPage: string): void {
+    console.log('next page', nextPage);
+    const match = nextPage.match(/offset=(\d+)&limit=(\d+)/);
+
+    if (match) {
+      const offset = parseInt(match[1], 10);
+      const limit = parseInt(match[2], 10);
+
+      const paginator = { limit, offset };
+      this.pokemonService
+        .getPokemonsList(paginator)
+        .pipe(
+          tap((data) => {
+            this.gridPokemon.set(data);
+            console.log(this.gridPokemon());
+            console.log(data);
+          }),
+          catchError((error) => {
+            this.errorMessage = error;
+            return EMPTY;
+          })
+        )
+        .subscribe();
+    }
+  }
+
+  protected onPrevPage(nextPage: string): void {
+    console.log('next page', nextPage);
+    const match = nextPage.match(/offset=(\d+)&limit=(\d+)/);
+
+    if (match) {
+      const offset = parseInt(match[1], 10);
+      const limit = parseInt(match[2], 10);
+
+      const paginator = { limit, offset };
+      this.pokemonService
+        .getPokemonsList(paginator)
+        .pipe(
+          tap((data) => {
+            this.gridPokemon.set(data);
+            console.log(this.gridPokemon());
+            console.log(data);
+          }),
+          catchError((error) => {
+            this.errorMessage = error;
+            return EMPTY;
+          })
+        )
+        .subscribe();
+    }
   }
 }

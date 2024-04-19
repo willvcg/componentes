@@ -12,6 +12,11 @@
 />
 
 <app-table [headArray]="headEndpoints()" [gridArray]="gridEndpoints()" />
-<app-table [headArray]="headPokemon()" [gridArray]="gridPokemon()" />
+<app-table
+  [headArray]="headPokemon()"
+  [gridArray]="gridPokemon()"
+  (nextPage)="onNextPage($event)"
+  (prevPage)="onPrevPage($event)"
+/>
 
 {{ errorMessage }}
