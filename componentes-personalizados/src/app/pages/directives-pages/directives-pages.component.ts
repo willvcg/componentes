@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DebounceInputDirective } from '../../directives/debounce-input.directive';
+import { HighlightDirective } from '../../directives/highlight.directive';
 import { NumbersOnlyDirective } from '../../directives/numbers-only.directive';
 import { OnlyTextDirective } from '../../directives/only-text.directive';
 import { UnderlineDirective } from '../../directives/underline.directive';
@@ -14,6 +15,7 @@ import { UnderlineDirective } from '../../directives/underline.directive';
     NumbersOnlyDirective,
     UnderlineDirective,
     DebounceInputDirective,
+    HighlightDirective,
   ],
   templateUrl: './directives-pages.component.html',
   styleUrl: './directives-pages.component.css',
