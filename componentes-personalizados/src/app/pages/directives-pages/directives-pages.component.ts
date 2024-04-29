@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { DebounceInputDirective } from '../../directives/debounce-input.directive';
 import { NumbersOnlyDirective } from '../../directives/numbers-only.directive';
 import { OnlyTextDirective } from '../../directives/only-text.directive';
 import { UnderlineDirective } from '../../directives/underline.directive';
@@ -12,6 +13,7 @@ import { UnderlineDirective } from '../../directives/underline.directive';
     OnlyTextDirective,
     NumbersOnlyDirective,
     UnderlineDirective,
+    DebounceInputDirective,
   ],
   templateUrl: './directives-pages.component.html',
   styleUrl: './directives-pages.component.css',
@@ -30,5 +32,14 @@ export class DirectivesPagesComponent {
   textWithOutDirective = signal<string>(
     'Prueba de underline directive sin underline'
   );
+  //#endregion
+
+  //#region DebounceInput Directive
+  searchTerm: string = '';
+  searchTermDebounced: string = '';
+
+  onSearch(term: string) {
+    this.searchTermDebounced = term;
+  }
   //#endregion
 }

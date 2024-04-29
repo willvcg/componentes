@@ -18,3 +18,13 @@
 <hr />
 <p appUnderline>{{ textDirective() }}</p>
 <p>{{ textWithOutDirective() }}</p>
+<hr />
+<h3>debounceTime</h3>
+<input
+  type="text"
+  [(ngModel)]="searchTerm"
+  [debounceTime]="500"
+  (search)="onSearch($event)"
+  appDebounceInput
+/>
+{{ searchTermDebounced }}
