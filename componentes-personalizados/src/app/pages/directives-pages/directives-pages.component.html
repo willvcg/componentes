@@ -36,3 +36,12 @@
 <p appCustomHighlight highlightColor="green">
   Click me to change my background color.
 </p>
+<hr />
+<h3>Double Click directive</h3>
+<button
+  appDoubleClick
+  (singleClick)="singleHandler($event)"
+  (doubleClick)="doubleHandler($event)"
+>
+  direcitva double click
+</button>
