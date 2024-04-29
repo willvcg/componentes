@@ -49,6 +49,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'accordion',
+    loadComponent: () =>
+      import('./pages/accordion-page/accordion-page.component').then(
+        (c) => c.AccordionPageComponent
+      ),
+  },
+  {
     path: '**',
     redirectTo: '404',
   },
