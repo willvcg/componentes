@@ -56,6 +56,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'forms',
+    loadComponent: () =>
+      import('./pages/form-page/form-page.component').then(
+        (c) => c.FormPageComponent
+      ),
+  },
+  {
     path: '**',
     redirectTo: '404',
   },
