@@ -63,6 +63,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'pipes',
+    loadComponent: () =>
+      import('./pages/pipes-page/pipes-page.component').then(
+        (c) => c.PipesPageComponent
+      ),
+  },
+  {
     path: '**',
     redirectTo: '404',
   },
