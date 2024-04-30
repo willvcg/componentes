@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FileSizePipe } from '../../pipes/file-size.pipe';
 import { SortArrayPipe } from '../../pipes/sort-array.pipe';
 import { TruncateTextPipe } from '../../pipes/truncate-text.pipe';
 
@@ -12,7 +13,7 @@ interface Product {
   standalone: true,
   templateUrl: './pipes-page.component.html',
   styleUrl: './pipes-page.component.css',
-  imports: [TruncateTextPipe, SortArrayPipe],
+  imports: [TruncateTextPipe, SortArrayPipe, FileSizePipe],
 })
 export class PipesPageComponent {
   items: Product[] = [
