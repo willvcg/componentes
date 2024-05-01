@@ -8,3 +8,26 @@
   <app-input formControlName="inputText"></app-input>
 </form>
 {{ form.value | json }}
+<hr />
+<h4>Input Custom with Form</h4>
+<app-input-custom
+  type="text"
+  placeholder="Ingrese solo texto con ValueAccesor"
+  [control]="getControl('name')"
+/>
+<app-input-custom
+  type="email"
+  placeholder="Ingrese solo email con ValueAccesor"
+  [control]="getControl('email')"
+/>
+<app-input-custom
+  type="password"
+  placeholder="Ingrese solo contraseña con ValueAccesor"
+  [control]="getControl('password')"
+/>
+<app-input-custom
+  type="number"
+  placeholder="Ingrese solo numero con ValueAccesor"
+  [control]="getControl('number')"
+/>
+{{ formCustom.value | json }}

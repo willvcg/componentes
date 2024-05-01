@@ -1,11 +1,13 @@
 import { JsonPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
+  FormBuilder,
   FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { InputCustomComponent } from '../../componentes/input-custom/input-custom.component';
 import { InputComponent } from '../../componentes/input/input.component';
 
 @Component({
@@ -13,13 +15,32 @@ import { InputComponent } from '../../componentes/input/input.component';
   standalone: true,
   templateUrl: './inputs-pages.component.html',
   styleUrl: './inputs-pages.component.css',
-  imports: [InputComponent, FormsModule, ReactiveFormsModule, JsonPipe],
+  imports: [
+    InputComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    JsonPipe,
+    InputCustomComponent,
+  ],
 })
 export class InputsPagesComponent {
+  private fb = inject(FormBuilder);
   //#region Input Component
   inputText = '';
   form: FormGroup = new FormGroup({
     inputText: new FormControl('test'),
   });
   //#endregion
+
+  //#region Input Custom Component
+  formCustom = this.fb.group({
+    name: [''],
+    email: [''],
+    password: [''],
+    number: [''],
+  });
+
+  getControl(name: string) {
+    return this.formCustom.get(name) as FormControl;
+  }
 }
