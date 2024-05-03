@@ -70,6 +70,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'selects',
+    loadComponent: () =>
+      import('./pages/selects-page/selects-page.component').then(
+        (c) => c.SelectsPageComponent
+      ),
+  },
+  {
     path: '**',
     redirectTo: '404',
   },

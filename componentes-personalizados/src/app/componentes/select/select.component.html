@@ -1,0 +1,29 @@
+<div [ngClass]="contentClass()" [class.hidden]="!!hidden()" class="wrapper">
+  @if (label()) {
+  <label [for]="id()" [ngClass]="labelClass()" [class.hidden]="!!hidden()">
+    {{ label() }}
+  </label>
+  }
+  <select
+    [id]="id()"
+    [ngClass]="class()"
+    (change)="onSelect($event)"
+    [style]="style()"
+    [disabled]="disabled() || readonly()"
+    [class.hidden]="!!hidden()"
+    (click)="$event.stopPropagation()"
+    (focus)="onfocus.emit()"
+    (blur)="onblur.emit()"
+  >
+    @for (o of op; track o) {
+    <option [selected]="selected() == o[0]" [value]="o[0]">
+      {{ o[1] }}
+    </option>
+    }
+  </select>
+</div>
+
+<!-- <div class="wrapper">
+  <input type="text" name="input" placeholder="" />
+  <label for="input">Floating Label</label>
+</div> -->

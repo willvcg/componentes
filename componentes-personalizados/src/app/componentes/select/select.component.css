@@ -1,0 +1,30 @@
+/* .wrapper{
+    padding: 10px;
+    background-color: transparent;
+    border: 2px solid burlywood;
+    border-radius: 5px;
+    width: max-content;
+    color: black;
+    font-size: 12px;
+}
+
+select{
+    border: 1.9px lightblue;
+}
+
+label{
+    position: absolute;
+    left: 280px;
+    top: 0px;
+    padding: 0 4px;
+    color: black;
+    background-color: white;
+    transition: all 0.2s ease;
+    pointer-events: none;
+}
+
+input:not(:placeholder-shown)~label,
+input:focus~label{
+    top: 0px;
+    font-size: 13px;
+} */
