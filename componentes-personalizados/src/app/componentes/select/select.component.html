@@ -15,9 +15,9 @@
     (focus)="onfocus.emit()"
     (blur)="onblur.emit()"
   >
-    @for (o of op; track o) {
-    <option [selected]="selected() == o[0]" [value]="o[0]">
-      {{ o[1] }}
+    @for (option of options(); track option) {
+    <option [selected]="selected() == option[0]" [value]="option[0]">
+      {{ option[1] }}
     </option>
     }
   </select>

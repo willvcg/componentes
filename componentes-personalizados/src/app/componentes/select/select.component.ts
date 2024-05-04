@@ -1,5 +1,12 @@
 import { NgClass } from '@angular/common';
-import { Component, forwardRef, input, model, output } from '@angular/core';
+import {
+  Component,
+  forwardRef,
+  input,
+  model,
+  output,
+  signal,
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export type Values<
@@ -44,17 +51,17 @@ export class SelectComponent implements ControlValueAccessor {
   //   if (typeof e === 'string') this.readonly = /^true$/i.test(e) || e === '';
   //   else this.readonly = !!e;
   // }
-  selectedChange = output<any>();
+  selectedChange = output<Selected | undefined>();
   onfocus = output<void>();
   onblur = output<void>();
 
   onChange = (_: any) => {};
   onTouch = () => {};
   touch!: boolean;
-  op!: [string, string][];
+  options = signal<[string, string][] | null>(null);
 
   ngAfterContentInit() {
-    this.op = Object.entries(this.values());
+    this.options.set(Object.entries(this.values()));
   }
 
   onSelect(e: Event) {

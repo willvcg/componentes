@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -9,6 +9,7 @@ import {
 import {
   SelectComponent,
   Selected,
+  Values,
 } from '../../componentes/select/select.component';
 
 @Component({
@@ -21,28 +22,28 @@ import {
 export class SelectsPageComponent {
   private formBuilder: FormBuilder = inject(FormBuilder);
   /** Array de los tipos de documentos */
-  tipoDocumentos = {
+  tipoDocumentos = signal<Values<string | number, string>>({
     '0': 'Selecciona un tipo de documento',
     NIF: 'NIF',
     NIE: 'NIE',
     CIF: 'CIF',
     PASAPORTE: 'PASAPORTE',
-  };
+  });
   /** Documento seleccionado */
-  documento: Selected<typeof this.tipoDocumentos> = 'NIF';
+  documento = signal<Selected>('NIF');
   myForm: FormGroup = this.formBuilder.group({
     documento: ['', Validators.required],
   });
 
   /** Array de los tipos de plantas */
-  tipoPlantas = {
+  tipoPlantas = signal<Values<string | number, string>>({
     '0': 'Selecciona un tipo de planta',
     INTERIOR: 'Interior',
     EXTERIOR: 'Exterior',
-  };
+  });
   /** Planta seleccionada */
-  planta: Selected<typeof this.tipoPlantas> = 'INTERIOR';
-  plantaNgModel?: string;
+  planta = signal<Selected>('INTERIOR');
+  plantaNgModel = signal<Selected | null>('INTERIOR');
 
   onSubmit() {
     if (this.myForm.valid) {
@@ -50,7 +51,7 @@ export class SelectsPageComponent {
     }
   }
 
-  protected selectedChange(event: any) {
+  protected selectedChange(event: Selected | undefined) {
     console.log('event', event);
   }
 }

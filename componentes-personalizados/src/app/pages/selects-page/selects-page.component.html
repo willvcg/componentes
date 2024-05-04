@@ -1,8 +1,8 @@
 <h4>Select with Form</h4>
 <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
   <app-select
-    [values]="tipoDocumentos"
-    [selected]="documento"
+    [values]="tipoDocumentos()"
+    [selected]="documento()"
     label="Documento"
     (selectedChange)="selectedChange($event)"
     formControlName="documento"
@@ -13,9 +13,9 @@
 <hr />
 <h4>Select with ngModel</h4>
 <app-select
-  [values]="tipoPlantas"
-  [selected]="planta"
+  [values]="tipoPlantas()"
+  [selected]="planta()"
   label="Planta"
   [(ngModel)]="plantaNgModel"
 />
-{{ plantaNgModel }}
+{{ plantaNgModel() }}
