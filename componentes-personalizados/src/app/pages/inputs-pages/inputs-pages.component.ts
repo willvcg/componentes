@@ -1,5 +1,5 @@
 import { JsonPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -26,7 +26,7 @@ import { InputComponent } from '../../componentes/input/input.component';
 export class InputsPagesComponent {
   private fb = inject(FormBuilder);
   //#region Input Component
-  inputText = '';
+  inputNumber = signal<number>(12);
   form: FormGroup = new FormGroup({
     inputText: new FormControl('test'),
   });
