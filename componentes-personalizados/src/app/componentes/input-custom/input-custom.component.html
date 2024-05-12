@@ -31,10 +31,9 @@
     <label [for]="id()" [class.show]="selectFocused || checkValue()">{{
       label()
     }}</label>
-    } @if (errorMsg() && touch && showError() !== 'never') {
-
+    } @if (_errorMsg() && touch && showError() !== 'never') {
     <p [ngClass]="errorClass()">
-      {{ errorMsg() }}
+      {{ _errorMsg() }}
     </p>
     }
   </div>

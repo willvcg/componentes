@@ -9,6 +9,7 @@ import {
   input,
   model,
   output,
+  signal,
   untracked,
 } from '@angular/core';
 import {
@@ -71,6 +72,8 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
 
   private timeCreated?: number;
   private statusChanged$?: Subscription;
+
+  protected _errorMsg = signal<string>('');
 
   protected checkValue = computed(() => {
     const valuecheck = this.value;
@@ -145,7 +148,7 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
       const readonly = this.readonly();
       if (readonly) {
         this.touch = false;
-        // this.errorMsg = ''
+        this._errorMsg.set('');
         this.ngControl?.control?.clearValidators();
       } else if (readonly === false) {
         this.touch = true;
@@ -159,6 +162,15 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
     //     // this.value = 0
     //   }
     // });
+
+    effect(() => {
+      const errorMsg = this.errorMsg();
+      untracked(() => {
+        if (errorMsg) {
+          this._errorMsg.set(errorMsg);
+        }
+      });
+    });
   }
 
   ngOnInit(): void {
@@ -170,7 +182,7 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
           if (Date.now() < this.timeCreated! + 1000) return;
           if (status === 'INVALID') {
             this.onTouch();
-          } /*else if (status === 'VALID') this.errorMsg = '';*/
+          } else if (status === 'VALID') this._errorMsg.set('');
         }
       );
     }
@@ -205,7 +217,9 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
     const error = Object.keys(validation ?? {})?.shift() ?? -1;
     const msg =
       (!this.readonly() && this.errors() && this.errors()?.[error]) || '';
-    // this.errorMsg = msg;
+    untracked(() => {
+      this._errorMsg.set(msg);
+    });
   }
 
   markAsTouched() {
