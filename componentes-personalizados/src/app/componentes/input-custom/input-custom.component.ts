@@ -1,12 +1,15 @@
 import { NgClass } from '@angular/common';
 import {
   Component,
+  OnInit,
   Optional,
   Self,
   computed,
+  effect,
   input,
   model,
   output,
+  untracked,
 } from '@angular/core';
 import {
   ControlValueAccessor,
@@ -14,6 +17,7 @@ import {
   NgControl,
   ReactiveFormsModule,
   ValidationErrors,
+  Validators,
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Values } from '../select/select.component';
@@ -25,7 +29,7 @@ import { Values } from '../select/select.component';
   templateUrl: './input-custom.component.html',
   styleUrl: './input-custom.component.css',
 })
-export class InputCustomComponent implements ControlValueAccessor {
+export class InputCustomComponent implements ControlValueAccessor, OnInit {
   id = input<string>(
     `input-${Math.floor((1 + Math.random()) * 0x10000).toString(16)}`
   );
@@ -80,13 +84,132 @@ export class InputCustomComponent implements ControlValueAccessor {
   constructor(@Optional() @Self() ngControl: NgControl) {
     this.ngControl = ngControl;
     if (this.ngControl) this.ngControl.valueAccessor = this;
+
+    effect(() => {
+      const validation = this.validation();
+      const errors = this.errors();
+      if (validation && errors) {
+        this.setError();
+      } else if (errors) {
+        // this.errorMsg = '';
+      }
+    });
+
+    effect(() => {
+      const errors = this.errors();
+      if (this.ngControl?.control) {
+        this.setError();
+      }
+    });
+
+    effect(() => {
+      const showError = this.showError();
+      if (showError === 'always') {
+        this.touch = true;
+      }
+    });
+
+    effect(() => {
+      const hidden = this.hidden();
+      this.ngControl?.control?.clearValidators();
+      !this.noHideDisabled() && this.ngControl?.control?.disable();
+      // this.getterControlValid();
+      if (hidden === false) {
+        !this.noHideDisabled() && this.ngControl?.control?.enable();
+        this.required() &&
+          this.ngControl?.control?.addValidators(Validators.required);
+        this.ngControl?.control?.updateValueAndValidity({
+          onlySelf: true,
+          emitEvent: false,
+        });
+        // this.getterControlValid();
+      }
+    });
+
+    effect(() => {
+      const required = this.required();
+      const hidden = this.hidden();
+      if (required && !hidden) {
+        this.ngControl?.control?.addValidators(Validators.required);
+        this.ngControl?.control?.updateValueAndValidity({
+          onlySelf: true,
+          emitEvent: false,
+        });
+      } else if (required === false) {
+        this.ngControl?.control?.removeValidators(Validators.required);
+        this.touch = false;
+      }
+    });
+
+    effect(() => {
+      const readonly = this.readonly();
+      if (readonly) {
+        this.touch = false;
+        // this.errorMsg = ''
+        this.ngControl?.control?.clearValidators();
+      } else if (readonly === false) {
+        this.touch = true;
+        this.setError();
+      }
+    });
+
+    // effect(() => {
+    //   const value = this.value();
+    //   if (this.type() === 'select' && value == '0') {
+    //     // this.value = 0
+    //   }
+    // });
   }
 
+  ngOnInit(): void {
+    // this.placeholder = this.placeholder.trim() || this.label || ' ';
+    if (this.ngControl?.control) {
+      this.ngControl.control.markAsTouched = () => this.onTouch();
+      this.statusChanged$ = this.ngControl.control.statusChanges.subscribe(
+        (status) => {
+          if (Date.now() < this.timeCreated! + 1000) return;
+          if (status === 'INVALID') {
+            this.onTouch();
+          } /*else if (status === 'VALID') this.errorMsg = '';*/
+        }
+      );
+    }
+  }
+
+  ngAfterViewInit() {
+    // this.getterControlValid();
+    this.timeCreated = Date.now();
+  }
+
+  private onTouch() {
+    if (!this.touch) {
+      this.touch = true;
+      this._onTouch && this._onTouch();
+      this.touched.emit(true);
+    }
+    this.setError();
+  }
+
+  // private getterControlValid() {
+  //   // @ts-ignore
+  //   this.ngControl?.control.__defineGetter__(
+  //     'valid',
+  //     function (this: AbstractControl) {
+  //       return this.status === 'DISABLED' || this.status === 'VALID';
+  //     }
+  //   );
+  // }
+
   setError() {
-    // const validation = this.validation ?? this.ngControl?.control?.errors
-    // const error = Object.keys(validation ?? {})?.shift() ?? -1
-    // const msg = !this.readonly && this.errors && this.errors[error] || ''
-    // this.errorMsg = msg
+    const validation = this.validation() ?? this.ngControl?.control?.errors;
+    const error = Object.keys(validation ?? {})?.shift() ?? -1;
+    const msg =
+      (!this.readonly() && this.errors() && this.errors()?.[error]) || '';
+    // this.errorMsg = msg;
+  }
+
+  markAsTouched() {
+    this.onTouch();
   }
 
   onInput(e: EventTarget | null) {
@@ -97,7 +220,7 @@ export class InputCustomComponent implements ControlValueAccessor {
     // else
     //   this.value.set((e as HTMLInputElement)?.value.trim() ?? '')
     this.onChange(this.value);
-    // this.onTouch()
+    this.onTouch();
   }
 
   writeValue(value: any): void {
@@ -113,6 +236,8 @@ export class InputCustomComponent implements ControlValueAccessor {
     this._onTouch = fn;
   }
   setDisabledState(isDisabled: boolean): void {
-    this.disabled.set(isDisabled);
+    untracked(() => {
+      this.disabled.set(isDisabled);
+    });
   }
 }

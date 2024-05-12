@@ -7,6 +7,7 @@
 <form [formGroup]="form">
   <app-input formControlName="inputText"></app-input>
 </form>
+<button (click)="onSubmit()">Submit</button>
 {{ form.value | json }}
 <hr />
 <h4>Input Custom with Form</h4>
@@ -30,6 +31,8 @@
   type="number"
   placeholder="Ingrese solo numero con ValueAccesor"
   [(ngModel)]="inputNumber"
+  [validation]="{ required: true }"
+  [errors]="{ required: 'Obligatorio' }"
   label="numero"
 />
 {{ inputNumber() }}

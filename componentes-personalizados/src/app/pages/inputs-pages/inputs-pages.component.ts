@@ -43,4 +43,8 @@ export class InputsPagesComponent {
   getControl(name: string) {
     return this.formCustom.get(name) as FormControl;
   }
+
+  onSubmit() {
+    console.log(this.formCustom.value);
+  }
 }
