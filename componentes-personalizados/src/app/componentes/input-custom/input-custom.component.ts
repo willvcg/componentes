@@ -1,17 +1,20 @@
 import { NgClass } from '@angular/common';
 import {
   Component,
+  DestroyRef,
   OnInit,
   Optional,
   Self,
   computed,
   effect,
+  inject,
   input,
   model,
   output,
   signal,
   untracked,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   ControlValueAccessor,
   FormsModule,
@@ -20,7 +23,6 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { Subscription } from 'rxjs';
 import { Values } from '../select/select.component';
 
 @Component({
@@ -63,6 +65,8 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
   click = output<void>();
   keyEnter = output<Event>();
 
+  private destroyRef = inject(DestroyRef);
+
   onChange = (_: any) => {};
   _onTouch = () => {};
   touch!: boolean;
@@ -71,7 +75,6 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
   selectFocused = false;
 
   private timeCreated?: number;
-  private statusChanged$?: Subscription;
 
   protected _errorMsg = signal<string>('');
 
@@ -177,14 +180,14 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
     // this.placeholder = this.placeholder.trim() || this.label || ' ';
     if (this.ngControl?.control) {
       this.ngControl.control.markAsTouched = () => this.onTouch();
-      this.statusChanged$ = this.ngControl.control.statusChanges.subscribe(
-        (status) => {
+      this.ngControl.control.statusChanges
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe((status) => {
           if (Date.now() < this.timeCreated! + 1000) return;
           if (status === 'INVALID') {
             this.onTouch();
           } else if (status === 'VALID') this._errorMsg.set('');
-        }
-      );
+        });
     }
   }
 
