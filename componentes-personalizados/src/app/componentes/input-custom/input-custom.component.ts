@@ -87,6 +87,10 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
     return false;
   });
 
+  protected _placeholder = computed(
+    () => this.placeholder().trim() || this.label() || ' '
+  );
+
   constructor(@Optional() @Self() ngControl: NgControl) {
     this.ngControl = ngControl;
     if (this.ngControl) this.ngControl.valueAccessor = this;
@@ -177,7 +181,6 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
   }
 
   ngOnInit(): void {
-    // this.placeholder = this.placeholder.trim() || this.label || ' ';
     if (this.ngControl?.control) {
       this.ngControl.control.markAsTouched = () => this.onTouch();
       this.ngControl.control.statusChanges

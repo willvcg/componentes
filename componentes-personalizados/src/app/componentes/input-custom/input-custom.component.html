@@ -14,7 +14,7 @@
       autocapitalize="off"
       spellcheck="false"
       [ngClass]="classInput()"
-      [placeholder]="placeholder()"
+      [placeholder]="_placeholder()"
       [autocomplete]="autocomplete()"
       [(ngModel)]="value"
       (ngModelChange)="valueChange.emit(value())"
