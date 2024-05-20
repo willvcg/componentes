@@ -23,6 +23,7 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
+import { tap } from 'rxjs';
 import { Values } from '../select/select.component';
 
 @Component({
@@ -181,22 +182,33 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
   }
 
   ngOnInit(): void {
-    if (this.ngControl?.control) {
-      this.ngControl.control.markAsTouched = () => this.onTouch();
-      this.ngControl.control.statusChanges
-        .pipe(takeUntilDestroyed(this.destroyRef))
-        .subscribe((status) => {
-          if (Date.now() < this.timeCreated! + 1000) return;
-          if (status === 'INVALID') {
-            this.onTouch();
-          } else if (status === 'VALID') this._errorMsg.set('');
-        });
-    }
+    this.implementOnTouchToControl();
+    this.checkStatusChangesFromControl();
   }
 
   ngAfterViewInit() {
     // this.getterControlValid();
     this.timeCreated = Date.now();
+  }
+
+  private implementOnTouchToControl(): void {
+    if (!this.ngControl?.control) return;
+    this.ngControl.control.markAsTouched = () => this.onTouch();
+  }
+
+  private checkStatusChangesFromControl(): void {
+    if (!this.ngControl?.control) return;
+    this.ngControl.control.statusChanges
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        tap((status) => {
+          if (Date.now() < this.timeCreated! + 1000) return;
+          if (status === 'INVALID') {
+            this.onTouch();
+          } else if (status === 'VALID') this._errorMsg.set('');
+        })
+      )
+      .subscribe();
   }
 
   private onTouch() {
@@ -235,7 +247,7 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
   onInput(e: EventTarget | null) {
     // if (this.type() === 'checkbox' || this.type() === 'toggle') {
     //   // this.value = (e as HTMLInputElement)?.checked ?? false
-    //   // this.valueChange.emit(!!this.value)
+    //   // this.valueChang1e.emit(!!this.value)
     // }
     // else
     //   this.value.set((e as HTMLInputElement)?.value.trim() ?? '')
