@@ -75,7 +75,7 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
   ngControl!: NgControl;
   selectFocused = false;
 
-  private timeCreated?: number;
+  private timeCreated = signal<number | null>(null);
 
   protected _errorMsg = signal<string>('');
 
@@ -188,7 +188,7 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
 
   ngAfterViewInit() {
     // this.getterControlValid();
-    this.timeCreated = Date.now();
+    this.timeCreated.set(Date.now());
   }
 
   private implementOnTouchToControl(): void {
@@ -202,7 +202,7 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
       .pipe(
         takeUntilDestroyed(this.destroyRef),
         tap((status) => {
-          if (Date.now() < this.timeCreated! + 1000) return;
+          if (Date.now() < this.timeCreated()! + 1000) return;
           if (status === 'INVALID') {
             this.onTouch();
           } else if (status === 'VALID') this._errorMsg.set('');
