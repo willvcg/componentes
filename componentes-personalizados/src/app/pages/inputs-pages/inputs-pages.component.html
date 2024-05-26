@@ -29,10 +29,9 @@
 /> -->
 <app-input-custom
   type="number"
-  placeholder="Ingrese solo numero con ValueAccesor"
   [(ngModel)]="inputNumber"
-  [validation]="{ required: true }"
-  [errors]="{ required: 'Obligatorio' }"
+  [validation]="inputNumber() != 5 ? { required: true } : {}"
+  [errors]="{ required: 'Introduce el cinco' }"
   label="numero"
 />
 {{ inputNumber() }}

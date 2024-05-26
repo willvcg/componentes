@@ -47,14 +47,14 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
   style = input<string>('');
   value = model<any>('');
   values = input<Values>();
-  hidden = input<boolean>(false);
+  hidden = input<boolean | null>(null);
   noHideDisabled = input<boolean>(false);
   disabled = model<boolean>(false);
   errorMsg = input<string>('');
   validation = input<ValidationErrors | null>();
   errors = input<Record<string, string>>();
   errorClass = input<string>('');
-  readonly = input<boolean>(false);
+  readonly = input<boolean | null>(null);
   autocomplete = input<boolean>(false);
   maxlength = input<string | number | null>(null);
   showError = input<'always' | 'never' | 'touched'>();
@@ -100,9 +100,14 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
       const validation = this.validation();
       const errors = this.errors();
       if (validation && errors) {
+        this.ngControl?.control?.addValidators(Validators.required);
+        this.ngControl?.control?.updateValueAndValidity({
+          onlySelf: true,
+          emitEvent: false,
+        });
         this.setError();
-      } else if (errors) {
-        // this.errorMsg = '';
+      } else if (!validation && errors) {
+        this._errorMsg.set('');
       }
     });
 
@@ -122,9 +127,11 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
 
     effect(() => {
       const hidden = this.hidden();
-      this.ngControl?.control?.clearValidators();
-      !this.noHideDisabled() && this.ngControl?.control?.disable();
-      // this.getterControlValid();
+      if (hidden) {
+        this.ngControl?.control?.clearValidators();
+        !this.noHideDisabled() && this.ngControl?.control?.disable();
+        // this.getterControlValid();
+      }
       if (hidden === false) {
         !this.noHideDisabled() && this.ngControl?.control?.enable();
         this.required() &&
