@@ -30,8 +30,23 @@
 <app-input-custom
   type="number"
   [(ngModel)]="inputNumber"
-  [validation]="inputNumber() != 5 ? { required: true } : {}"
-  [errors]="{ required: 'Introduce el cinco' }"
+  [required]="true"
+  [validation]="inputNumber() != 5 ? { numberFive: true } : {}"
+  [errors]="{ required: 'Obligatorio', numberFive: 'Introduce el cinco' }"
   label="numero"
 />
 {{ inputNumber() }}
+
+<app-input-custom
+  [(ngModel)]="inputString"
+  [required]="true"
+  [validation]="
+    inputString().length != 5 ? { stringLongitud: true } : undefined
+  "
+  [errors]="{
+    required: 'Obligatorio',
+    stringLongitud: 'La longitud tiene que ser de cinco'
+  }"
+  label="palabra"
+/>
+{{ inputString() }}

@@ -27,6 +27,7 @@ export class InputsPagesComponent {
   private fb = inject(FormBuilder);
   //#region Input Component
   inputNumber = signal<number>(12);
+  inputString = signal<string>('');
   form: FormGroup = new FormGroup({
     inputText: new FormControl('test'),
   });
@@ -40,9 +41,7 @@ export class InputsPagesComponent {
     number: [''],
   });
 
-  getControl(name: string) {
-    return this.formCustom.get(name) as FormControl;
-  }
+  ocultarNombre = signal<boolean>(false);
 
   onSubmit() {
     console.log(this.formCustom.value);
