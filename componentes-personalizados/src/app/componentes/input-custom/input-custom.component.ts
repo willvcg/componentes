@@ -37,7 +37,7 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
   id = input<string>(
     `input-${Math.floor((1 + Math.random()) * 0x10000).toString(16)}`
   );
-  placeholder = input<string>('');
+  placeholder = input<string>();
   type = input<
     'text' | 'number' | 'textarea' | 'checkbox' | 'toggle' | 'date' | 'select'
   >('text');
@@ -47,21 +47,21 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
   style = input<string>('');
   value = model<any>('');
   values = input<Values>();
-  hidden = input<boolean | null>(null);
-  noHideDisabled = input<boolean>(false);
-  disabled = model<boolean>(false);
-  errorMsg = input<string>('');
-  validation = input<ValidationErrors | null>();
+  hidden = input<boolean>();
+  noHideDisabled = input<boolean>();
+  disabled = model<boolean>();
+  errorMsg = input<string>();
+  validation = input<ValidationErrors | undefined | null>();
   errors = input<Record<string, string>>();
   errorClass = input<string>('');
-  readonly = input<boolean | null>(null);
+  readonly = input<boolean>();
   autocomplete = input<boolean>(false);
   maxlength = input<string | number | null>(null);
   showError = input<'always' | 'never' | 'touched'>();
   required = input<boolean>(false);
 
   onfocus = output<void>();
-  valueChange = output<string>();
+  valueChange = output<typeof this.value>();
   touched = output<boolean>();
   click = output<void>();
   keyEnter = output<Event>();
@@ -89,8 +89,15 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
   });
 
   protected _placeholder = computed(
-    () => this.placeholder().trim() || this.label() || ' '
+    () => this.placeholder()?.trim() || this.label() || ' '
   );
+
+  protected valueComputed = computed(() => {
+    const value = this.value;
+    untracked(() => {
+      this.valueChange.emit(value);
+    });
+  });
 
   constructor(@Optional() @Self() ngControl: NgControl) {
     this.ngControl = ngControl;
@@ -107,7 +114,9 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
         });
         this.setError();
       } else if (!validation && errors) {
-        this._errorMsg.set('');
+        untracked(() => {
+          this._errorMsg.set('');
+        });
       }
     });
 
