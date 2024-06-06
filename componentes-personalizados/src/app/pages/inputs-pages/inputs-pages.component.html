@@ -33,8 +33,7 @@
   [required]="true"
   [validation]="inputNumber() != 5 ? { numberFive: true } : {}"
   [errors]="{ required: 'Obligatorio', numberFive: 'Introduce el cinco' }"
-  label="numero"
-/>
+  label="numero" />
 {{ inputNumber() }}
 
 <app-input-custom
@@ -45,8 +44,7 @@
   "
   [errors]="{
     required: 'Obligatorio',
-    stringLongitud: 'La longitud tiene que ser de cinco'
+    stringLongitud: 'La longitud tiene que ser de cinco',
   }"
-  label="palabra"
-/>
+  label="palabra" />
 {{ inputString() }}

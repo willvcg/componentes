@@ -1,19 +1,25 @@
-import { Directive, ElementRef, Host, HostListener, inject } from '@angular/core';
+import {
+  Directive,
+  ElementRef,
+  Host,
+  HostListener,
+  inject,
+} from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 @Directive({
   selector: '[appOnlyText]',
-  standalone: true
+  standalone: true,
 })
 export class OnlyTextDirective {
   element: ElementRef<HTMLInputElement> = inject(ElementRef);
-  ngControl = inject(NgControl, {optional: true});
+  ngControl = inject(NgControl, { optional: true });
 
-  @HostListener('input') onInput(): void{
+  @HostListener('input') onInput(): void {
     const value = this.element.nativeElement.value;
     const regex = /^[a-zA-Z\s]*$/;
 
-    if(!regex.test(value)) {
+    if (!regex.test(value)) {
       this.setValue(value);
     }
   }
@@ -21,13 +27,12 @@ export class OnlyTextDirective {
   private setValue(value: string): void {
     const cleanValue = value.replace(/[^a-zA-Z\s]/g, '');
 
-    if(this.ngControl) {
+    if (this.ngControl) {
       this.ngControl.control!.setValue(cleanValue);
     } else {
       this.element.nativeElement.value = cleanValue;
     }
   }
-
 
   // Se puede acceder al value directamente desde el target
   // @HostListener('input', ['$event']) onInput(event: Event): void {

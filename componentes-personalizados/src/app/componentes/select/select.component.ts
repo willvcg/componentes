@@ -11,7 +11,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export type Values<
   T extends string | number = string | number,
-  V = any
+  V = any,
 > = Record<T, V>;
 /** Objeto {valor: Texto mostrar en el select} */
 export type Selected<T = Values> = Extract<keyof T, string | number>;
@@ -33,7 +33,7 @@ export type Selected2<T = Values> = keyof T extends number ? number : string;
 })
 export class SelectComponent implements ControlValueAccessor {
   id = input<string>(
-    `select-${Math.floor((1 + Math.random()) * 0x10000).toString(16)}`
+    `select-${Math.floor((1 + Math.random()) * 0x10000).toString(16)}`,
   );
   label = input<string>('Selecciona una opción');
   class = input<string>('');

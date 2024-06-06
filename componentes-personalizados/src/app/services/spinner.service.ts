@@ -1,17 +1,16 @@
 import { Injectable, signal } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SpinnerService {
-
   isLoading = signal<boolean>(false);
 
-  public hide(){
+  public hide() {
     this.isLoading.set(false);
   }
 
-  public show(){
+  public show() {
     this.isLoading.set(true);
   }
 }

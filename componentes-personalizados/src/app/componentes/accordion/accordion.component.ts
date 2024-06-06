@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './accordion.component.html',
-  styleUrl: './accordion.component.css'
+  styleUrl: './accordion.component.css',
 })
-export class AccordionComponent {
-
-}
+export class AccordionComponent {}

@@ -2,50 +2,61 @@
   <thead>
     <tr>
       @for (head of headArray(); track head.head) {
-      <th>{{ head.head }}</th>
+        <th>{{ head.head }}</th>
       }
     </tr>
   </thead>
   <tbody>
     @for (item of dataArray(); track item) {
-    <tr>
-      @for (head of headArray(); track head.head) {
-      <td>
-        @switch (head.fieldName) { @case ("buttonsOptions") { @for (button of
-        buttonsOptions()?.buttons; track button) {
-        <app-button
-          [title]="button.title"
-          [class]="button.class"
-          (click)="onButtonsOptionsClick(item, button)"
-        />
-        } } @case ("selectsOptions") { @if (selectOptions(); as selectOptions) {
-        <select (change)="onSelectOptionsClick(item, selectOptions, $event)">
-          @for (opcion of item[selectOptions.selectKeyValues]; track opcion) {
-          <option [value]="opcion">{{ opcion }}</option>
-          }
-        </select>
-        } } @default {
-        {{ item[head.fieldName] }}
-        } }
-      </td>
-      }
-    </tr>
+      <tr>
+        @for (head of headArray(); track head.head) {
+          <td>
+            @switch (head.fieldName) {
+              @case ("buttonsOptions") {
+                @for (button of buttonsOptions()?.buttons; track button) {
+                  <app-button
+                    [title]="button.title"
+                    [class]="button.class"
+                    (click)="onButtonsOptionsClick(item, button)" />
+                }
+              }
+              @case ("selectsOptions") {
+                @if (selectOptions(); as selectOptions) {
+                  <select
+                    (change)="
+                      onSelectOptionsClick(item, selectOptions, $event)
+                    ">
+                    @for (
+                      opcion of item[selectOptions.selectKeyValues];
+                      track opcion
+                    ) {
+                      <option [value]="opcion">{{ opcion }}</option>
+                    }
+                  </select>
+                }
+              }
+              @default {
+                {{ item[head.fieldName] }}
+              }
+            }
+          </td>
+        }
+      </tr>
     }
   </tbody>
 </table>
 
 <!-- Custom Paginated -->
 @if (showPaginator()) {
-<div class="pagination">
-  <!-- <button [disabled]="currentPage === 1" (click)="goToFirstPage()">Inicio</button> -->
-  <button (click)="onPrevChange(currentPage() - 1)">Anterior</button>
-  <span>{{ currentPage() }} / {{ totalPages() }}</span>
-  <button
-    [disabled]="currentPage === totalPages"
-    (click)="onNextChange(currentPage() + 1)"
-  >
-    Siguiente
-  </button>
-  <!-- <button [disabled]="currentPage === totalPages" (click)="goToLastPage()">Final</button> -->
-</div>
+  <div class="pagination">
+    <!-- <button [disabled]="currentPage === 1" (click)="goToFirstPage()">Inicio</button> -->
+    <button (click)="onPrevChange(currentPage() - 1)">Anterior</button>
+    <span>{{ currentPage() }} / {{ totalPages() }}</span>
+    <button
+      [disabled]="currentPage === totalPages"
+      (click)="onNextChange(currentPage() + 1)">
+      Siguiente
+    </button>
+    <!-- <button [disabled]="currentPage === totalPages" (click)="goToLastPage()">Final</button> -->
+  </div>
 }

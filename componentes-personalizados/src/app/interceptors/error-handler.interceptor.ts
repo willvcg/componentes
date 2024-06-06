@@ -14,6 +14,6 @@ export const errorHandlerInterceptor: HttpInterceptorFn = (req, next) => {
       console.error(errorMessage);
 
       return throwError(() => errorMessage);
-    })
+    }),
   );
 };

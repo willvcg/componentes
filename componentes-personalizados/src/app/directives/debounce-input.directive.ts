@@ -26,7 +26,7 @@ export class DebounceInputDirective implements AfterViewInit {
       .pipe(
         debounceTime(this.debounceTime()),
         takeUntilDestroyed(this.destroyRef),
-        tap(() => this.search.emit(this.elementRef.nativeElement.value))
+        tap(() => this.search.emit(this.elementRef.nativeElement.value)),
       )
       .subscribe();
   }

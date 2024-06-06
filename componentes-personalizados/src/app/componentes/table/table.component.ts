@@ -102,7 +102,7 @@ export class TableComponent {
   protected onSelectOptionsClick(
     item: CustomItem,
     select: SelectOptions,
-    event: Event
+    event: Event,
   ) {
     const selected = (event.target as HTMLSelectElement).value;
     item && select.callback?.({ item, selected });

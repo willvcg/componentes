@@ -1,13 +1,18 @@
 <h4>Select with Form</h4>
-<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+<form
+  [formGroup]="myForm"
+  (ngSubmit)="onSubmit()">
   <app-select
     [values]="tipoDocumentos()"
     [selected]="documento()"
     label="Documento"
     (selectedChange)="selectedChange($event)"
-    formControlName="documento"
-  />
-  <button type="submit" [disabled]="myForm.invalid">Submit</button>
+    formControlName="documento" />
+  <button
+    type="submit"
+    [disabled]="myForm.invalid">
+    Submit
+  </button>
 </form>
 {{ "Form: " + myForm.value.documento }}
 <hr />
@@ -16,6 +21,5 @@
   [values]="tipoPlantas()"
   [selected]="planta()"
   label="Planta"
-  [(ngModel)]="plantaNgModel"
-/>
+  [(ngModel)]="plantaNgModel" />
 {{ plantaNgModel() }}

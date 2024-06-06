@@ -9,7 +9,7 @@ export class DoubleClickDirective {
   doubleClick = output<MouseEvent>();
 
   protected timer = signal<ReturnType<typeof setTimeout> | undefined | number>(
-    undefined
+    undefined,
   );
   protected stopClick = signal(false);
 
@@ -23,7 +23,7 @@ export class DoubleClickDirective {
         if (!this.stopClick()) {
           this.singleClick.emit(e);
         }
-      }, delay)
+      }, delay),
     );
   }
 

@@ -2,7 +2,7 @@ import { ValidationErrors } from '@angular/forms';
 
 export const getValidatorErrorMessage = (
   validatorName: string,
-  validatorErrors?: ValidationErrors
+  validatorErrors?: ValidationErrors,
 ): string | undefined => {
   let args = messages
     .get(validatorName)

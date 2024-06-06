@@ -1,1 +1,8 @@
-<button [ngClass]="class()" [type]="type()" [disabled]="disabled()" [title]="title()" (click)="click($event)">{{title()}}</button>
+<button
+  [ngClass]="class()"
+  [type]="type()"
+  [disabled]="disabled()"
+  [title]="title()"
+  (click)="click($event)">
+  {{ title() }}
+</button>

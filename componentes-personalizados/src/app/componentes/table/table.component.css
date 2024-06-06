@@ -1,28 +1,29 @@
 /* users.component.css */
 .table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
-  
-.table th, .table td {
-border: 1px solid #ddd;
-padding: 8px;
-text-align: left;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
 }
 
 .table th {
-background-color: #f2f2f2;
+  background-color: #f2f2f2;
 }
 
 .table tbody tr:nth-child(even) {
-background-color: #f2f2f2;
+  background-color: #f2f2f2;
 }
 
 .table tbody tr:hover {
-background-color: #ddd;
+  background-color: #ddd;
 }
-  
+
 .pagination {
   margin-top: 20px;
 }

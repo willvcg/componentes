@@ -2,18 +2,21 @@
   type="text"
   placeholder="Ingrese solo texto con ngModel"
   appOnlyText
-  [(ngModel)]="text"
-/>
-<input type="text" placeholder="Ingrese solo texto" appOnlyText />
-<input type="text" placeholder="Ingrese cualquier valor" />
+  [(ngModel)]="text" />
+<input
+  type="text"
+  placeholder="Ingrese solo texto"
+  appOnlyText />
+<input
+  type="text"
+  placeholder="Ingrese cualquier valor" />
 {{ text }}
 <hr />
 <input
   [type]="'text'"
   [placeholder]="'Ingrese solo numeros'"
   [(ngModel)]="inputNumber"
-  appNumbersOnly
-/>
+  appNumbersOnly />
 {{ inputNumber }}
 <hr />
 <p appUnderline>{{ textDirective() }}</p>
@@ -25,15 +28,20 @@
   [(ngModel)]="searchTerm"
   [debounceTime]="500"
   (search)="onSearch($event)"
-  appDebounceInput
-/>
+  appDebounceInput />
 {{ searchTermDebounced }}
 <hr />
 <h3>Highlight</h3>
-<p appHighlight [highlightColor]="'blue'">This text is highlighted</p>
+<p
+  appHighlight
+  [highlightColor]="'blue'">
+  This text is highlighted
+</p>
 <hr />
 <h3>Custom Highlight</h3>
-<p appCustomHighlight highlightColor="green">
+<p
+  appCustomHighlight
+  highlightColor="green">
   Click me to change my background color.
 </p>
 <hr />
@@ -41,7 +49,6 @@
 <button
   appDoubleClick
   (singleClick)="singleHandler($event)"
-  (doubleClick)="doubleHandler($event)"
->
+  (doubleClick)="doubleHandler($event)">
   direcitva double click
 </button>
