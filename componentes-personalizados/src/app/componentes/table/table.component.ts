@@ -42,7 +42,7 @@ export type ButtonOptions = {
   title: string;
   class?: string;
   tooltip?: string;
-  callback: (ev: any) => void;
+  callback: (ev: CustomItem) => void;
 };
 export type ButtonsOptions = {
   buttons: ButtonOptions[];
