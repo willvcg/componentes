@@ -2,21 +2,20 @@
   [headArray]="headArray()"
   [gridArray]="gridArray()"
   [buttonsOptions]="buttonsArray()"
-  [selectOptions]="selectArray()"
-/>
+  [selectOptions]="selectArray()" />
 <app-table
   [headArray]="headTable()"
   [gridArray]="dataTable()"
   [buttonsOptions]="buttonsTabla()"
-  [selectOptions]="selectTable()"
-/>
+  [selectOptions]="selectTable()" />
 
-<app-table [headArray]="headEndpoints()" [gridArray]="gridEndpoints()" />
+<app-table
+  [headArray]="headEndpoints()"
+  [gridArray]="gridEndpoints()" />
 <app-table
   [headArray]="headPokemon()"
   [gridArray]="gridPokemon()"
   (nextPage)="onNextPage($event)"
-  (prevPage)="onPrevPage($event)"
-/>
+  (prevPage)="onPrevPage($event)" />
 
 {{ errorMessage }}

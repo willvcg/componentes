@@ -8,10 +8,9 @@ describe('SelectsPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SelectsPageComponent]
-    })
-    .compileComponents();
-    
+      imports: [SelectsPageComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(SelectsPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

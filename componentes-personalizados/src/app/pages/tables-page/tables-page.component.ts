@@ -192,7 +192,7 @@ export class TablesPageComponent {
       },
       (error) => {
         console.error('Error al obtener los lanzamientos', error);
-      }
+      },
     );
 
     this.pokemonService
@@ -206,7 +206,7 @@ export class TablesPageComponent {
         catchError((error) => {
           this.errorMessage = error;
           return EMPTY;
-        })
+        }),
       )
       .subscribe();
   }
@@ -239,7 +239,7 @@ export class TablesPageComponent {
           catchError((error) => {
             this.errorMessage = error;
             return EMPTY;
-          })
+          }),
         )
         .subscribe();
     }
@@ -265,7 +265,7 @@ export class TablesPageComponent {
           catchError((error) => {
             this.errorMessage = error;
             return EMPTY;
-          })
+          }),
         )
         .subscribe();
     }

@@ -8,10 +8,9 @@ describe('DirectivasPagesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DirectivasPagesComponent]
-    })
-    .compileComponents();
-    
+      imports: [DirectivasPagesComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(DirectivasPagesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

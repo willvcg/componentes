@@ -36,7 +36,7 @@ export class DirectivesPagesComponent {
   //#region NumbersOnly Directive
   textDirective = signal<string>('Prueba de underline directive');
   textWithOutDirective = signal<string>(
-    'Prueba de underline directive sin underline'
+    'Prueba de underline directive sin underline',
   );
   //#endregion
 

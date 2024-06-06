@@ -1,8 +1,15 @@
-<div class="modal" [ngClass]="{'show': showModal()}" (click)="closeOnBackdrop($event)">
+<div
+  class="modal"
+  [ngClass]="{ show: showModal() }"
+  (click)="closeOnBackdrop($event)">
   <div class="modal-content">
     <div class="modal-header">
       {{ title() }}
-      <span class="modal-close" (click)="cancelModal()">✕</span>
+      <span
+        class="modal-close"
+        (click)="cancelModal()"
+        >✕</span
+      >
     </div>
     <div class="modal-body">
       <ng-content></ng-content>
@@ -10,10 +17,17 @@
     <div class="modal-footer">
       @if (okText() || cancelText()) {
         @if (okText(); as okText) {
-          <app-button [title]="okText" [class]="okClass()" [disabled]="okDisabled()" (onClick)="okModal()"/>
+          <app-button
+            [title]="okText"
+            [class]="okClass()"
+            [disabled]="okDisabled()"
+            (onClick)="okModal()" />
         }
         @if (cancelText(); as cancelText) {
-          <app-button [title]="cancelText" [class]="cancelClass()" (onClick)="cancelModal()"  />
+          <app-button
+            [title]="cancelText"
+            [class]="cancelClass()"
+            (onClick)="cancelModal()" />
         }
       }
     </div>

@@ -1,35 +1,41 @@
-<div [ngClass]="class()" [class.hidden]="!!hidden()" (click)="click.emit()">
-  @if (type()!== 'checkbox' && type() !== 'toggle') { }
+<div
+  [ngClass]="class()"
+  [class.hidden]="!!hidden()"
+  (click)="click.emit()">
+  @if (type() !== "checkbox" && type() !== "toggle") {}
   <div [class.mb-5]="!noAutoMargin">
-    @if (type() === 'text' || type() ==='number' || type() === 'date') {
-    <input
-      [type]="type()"
-      [id]="id()"
-      autocorrect="off"
-      autocapitalize="off"
-      spellcheck="false"
-      [ngClass]="classInput()"
-      [placeholder]="_placeholder()"
-      [autocomplete]="autocomplete()"
-      [(ngModel)]="value"
-      (ngModelChange)="valueComputed()"
-      (input)="onInput($event.target)"
-      (keydown.enter)="keyEnter.emit($event)"
-      [disabled]="!!disabled()"
-      (blur)="touched.emit(true); touch = true; setError()"
-      [readonly]="readonly()"
-      [maxlength]="maxlength()"
-      ngDefaultControl
-      (focus)="onfocus.emit()"
-    />
-    } @if (label()) {
-    <label [for]="id()" [class.show]="selectFocused || checkValue()">{{
-      label()
-    }}</label>
-    } @if (_errorMsg() && touch && showError() !== 'never') {
-    <p [ngClass]="errorClass()">
-      {{ _errorMsg() }}
-    </p>
+    @if (type() === "text" || type() === "number" || type() === "date") {
+      <input
+        [type]="type()"
+        [id]="id()"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
+        [ngClass]="classInput()"
+        [placeholder]="_placeholder()"
+        [autocomplete]="autocomplete()"
+        [(ngModel)]="value"
+        (ngModelChange)="valueComputed()"
+        (input)="onInput($event.target)"
+        (keydown.enter)="keyEnter.emit($event)"
+        [disabled]="!!disabled()"
+        (blur)="touched.emit(true); touch = true; setError()"
+        [readonly]="readonly()"
+        [maxlength]="maxlength()"
+        ngDefaultControl
+        (focus)="onfocus.emit()" />
+    }
+    @if (label()) {
+      <label
+        [for]="id()"
+        [class.show]="selectFocused || checkValue()"
+        >{{ label() }}</label
+      >
+    }
+    @if (_errorMsg() && touch && showError() !== "never") {
+      <p [ngClass]="errorClass()">
+        {{ _errorMsg() }}
+      </p>
     }
   </div>
 </div>

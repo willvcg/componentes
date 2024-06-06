@@ -11,7 +11,7 @@ import { CoreService } from '../core/core.service';
 })
 export class PokemonService extends CoreService {
   getPokemonsList(
-    paginator: PaginationParams = defaultTablePaginationParams
+    paginator: PaginationParams = defaultTablePaginationParams,
   ): Observable<PokemonList> {
     return this.http.get<PokemonList>(`${environment.apiUrlBase}pokemon`, {
       params: { ...paginator },

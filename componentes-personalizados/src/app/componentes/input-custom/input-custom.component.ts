@@ -35,7 +35,7 @@ import { Values } from '../select/select.component';
 })
 export class InputCustomComponent implements ControlValueAccessor, OnInit {
   id = input<string>(
-    `input-${Math.floor((1 + Math.random()) * 0x10000).toString(16)}`
+    `input-${Math.floor((1 + Math.random()) * 0x10000).toString(16)}`,
   );
   placeholder = input<string>();
   type = input<
@@ -89,7 +89,7 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
   });
 
   protected _placeholder = computed(
-    () => this.placeholder()?.trim() || this.label() || ' '
+    () => this.placeholder()?.trim() || this.label() || ' ',
   );
 
   protected valueComputed = computed(() => {
@@ -222,7 +222,7 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
           if (status === 'INVALID') {
             this.onTouch();
           } else if (status === 'VALID') this._errorMsg.set('');
-        })
+        }),
       )
       .subscribe();
   }

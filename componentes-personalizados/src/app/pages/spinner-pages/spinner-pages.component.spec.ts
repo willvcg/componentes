@@ -8,10 +8,9 @@ describe('SpinnerPagesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SpinnerPagesComponent]
-    })
-    .compileComponents();
-    
+      imports: [SpinnerPagesComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(SpinnerPagesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

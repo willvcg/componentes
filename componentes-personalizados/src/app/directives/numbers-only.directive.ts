@@ -3,10 +3,10 @@ import { NgControl } from '@angular/forms';
 
 @Directive({
   selector: '[appNumbersOnly]',
-  standalone: true
+  standalone: true,
 })
 export class NumbersOnlyDirective {
-  ngControl = inject(NgControl, {optional: true});
+  ngControl = inject(NgControl, { optional: true });
 
   element: ElementRef<HTMLInputElement> = inject(ElementRef);
 
@@ -14,7 +14,7 @@ export class NumbersOnlyDirective {
     const value = this.element.nativeElement.value;
     const regex = /[^0-9]/g;
 
-    if(regex.test(value)) {
+    if (regex.test(value)) {
       this.setValue(value);
     }
   }
@@ -22,7 +22,7 @@ export class NumbersOnlyDirective {
   private setValue(value: string): void {
     const cleanValue = value.replace(/[^0-9]/g, '');
 
-    if(this.ngControl) {
+    if (this.ngControl) {
       this.ngControl.control!.setValue(cleanValue);
     } else {
       this.element.nativeElement.value = cleanValue;

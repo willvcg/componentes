@@ -6,18 +6,16 @@ import { Component, input, output } from '@angular/core';
   standalone: true,
   imports: [NgClass],
   templateUrl: './button.component.html',
-  styleUrl: './button.component.css'
+  styleUrl: './button.component.css',
 })
 export class ButtonComponent {
-
-  title = input.required<string>()
-  class = input<string>()
-  type = input<string>('button')
-  disabled = input<boolean>()
-  onClick = output()
+  title = input.required<string>();
+  class = input<string>();
+  type = input<string>('button');
+  disabled = input<boolean>();
+  onClick = output();
 
   click(e: Event) {
-    this.onClick.emit()
+    this.onClick.emit();
   }
-  
 }

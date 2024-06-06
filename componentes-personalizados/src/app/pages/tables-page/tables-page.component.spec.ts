@@ -8,10 +8,9 @@ describe('TablesPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TablesPageComponent]
-    })
-    .compileComponents();
-    
+      imports: [TablesPageComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(TablesPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -17,7 +17,7 @@ export class ErrorMessagesComponent {
       if (this.control.touched)
         return getValidatorErrorMessage(
           validatorName,
-          this.control.errors[validatorName]
+          this.control.errors[validatorName],
         );
     }
     return null;
