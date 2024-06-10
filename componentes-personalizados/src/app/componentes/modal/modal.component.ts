@@ -23,7 +23,7 @@ export class ModalComponent {
   onOk = output();
   onClose = output();
 
-  closeOnBackdrop(event: MouseEvent) {
+  closeOnBackdrop(event: MouseEvent | KeyboardEvent) {
     if (!this.closeClickOutside()) {
       return;
     }

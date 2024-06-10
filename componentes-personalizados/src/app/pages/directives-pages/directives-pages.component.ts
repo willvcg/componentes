@@ -41,8 +41,8 @@ export class DirectivesPagesComponent {
   //#endregion
 
   //#region DebounceInput Directive
-  searchTerm: string = '';
-  searchTermDebounced: string = '';
+  searchTerm = '';
+  searchTermDebounced = '';
 
   onSearch(term: string) {
     this.searchTermDebounced = term;
@@ -51,10 +51,10 @@ export class DirectivesPagesComponent {
 
   //#region DoubleClickDirective
   singleHandler(e: MouseEvent) {
-    console.log('Single click');
+    this.text = e.AT_TARGET.valueOf().toString();
   }
 
   doubleHandler(e: MouseEvent) {
-    console.log('Double click');
+    this.text = e.AT_TARGET.valueOf().toString();
   }
 }

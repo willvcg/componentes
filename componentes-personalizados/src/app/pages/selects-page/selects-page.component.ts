@@ -47,11 +47,11 @@ export class SelectsPageComponent {
 
   onSubmit() {
     if (this.myForm.valid) {
-      const selectedDocumento = this.myForm.value.documento;
+      // const selectedDocumento = this.myForm.value.documento;
     }
   }
 
   protected selectedChange(event: Selected | undefined) {
-    console.log('event', event);
+    if (event) this.documento.set(event);
   }
 }

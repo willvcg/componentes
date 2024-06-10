@@ -1,5 +1,6 @@
 import { NgClass } from '@angular/common';
 import {
+  AfterViewInit,
   Component,
   DestroyRef,
   OnInit,
@@ -33,7 +34,9 @@ import { Values } from '../select/select.component';
   templateUrl: './input-custom.component.html',
   styleUrl: './input-custom.component.css',
 })
-export class InputCustomComponent implements ControlValueAccessor, OnInit {
+export class InputCustomComponent
+  implements ControlValueAccessor, OnInit, AfterViewInit
+{
   id = input<string>(
     `input-${Math.floor((1 + Math.random()) * 0x10000).toString(16)}`,
   );
@@ -45,6 +48,7 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
   class = input<string>('');
   classInput = input<string>('');
   style = input<string>('');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   value = model<any>('');
   values = input<Values>();
   hidden = input<boolean>();
@@ -68,7 +72,9 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
 
   private destroyRef = inject(DestroyRef);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
   onChange = (_: any) => {};
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   _onTouch = () => {};
   touch!: boolean;
   noAutoMargin?: boolean;
@@ -121,6 +127,7 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
     });
 
     effect(() => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const errors = this.errors();
       if (this.ngControl?.control) {
         this.setError();
@@ -138,13 +145,18 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
       const hidden = this.hidden();
       if (hidden) {
         this.ngControl?.control?.clearValidators();
-        !this.noHideDisabled() && this.ngControl?.control?.disable();
+        if (!this.noHideDisabled()) this.ngControl?.control?.disable();
         // this.getterControlValid();
       }
       if (hidden === false) {
-        !this.noHideDisabled() && this.ngControl?.control?.enable();
-        this.required() &&
-          this.ngControl?.control?.addValidators(Validators.required);
+        const isNoHideDisabled = this.noHideDisabled();
+        const control = this.ngControl?.control;
+        if (!isNoHideDisabled && control) {
+          control.enable();
+        }
+        if (this.required() && control) {
+          control.addValidators(Validators.required);
+        }
         this.ngControl?.control?.updateValueAndValidity({
           onlySelf: true,
           emitEvent: false,
@@ -230,7 +242,9 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
   private onTouch() {
     if (!this.touch) {
       this.touch = true;
-      this._onTouch && this._onTouch();
+      if (this._onTouch) {
+        this._onTouch();
+      }
       this.touched.emit(true);
     }
     this.setError();
@@ -260,6 +274,7 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
     this.onTouch();
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onInput(e: EventTarget | null) {
     // if (this.type() === 'checkbox' || this.type() === 'toggle') {
     //   // this.value = (e as HTMLInputElement)?.checked ?? false
@@ -271,15 +286,20 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit {
     this.onTouch();
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   writeValue(value: any): void {
     if (value === null || value === undefined || value === '')
       this.touch = false;
     this.value = value ?? '';
     //this.touch = true
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   registerOnTouched(fn: any): void {
     this._onTouch = fn;
   }

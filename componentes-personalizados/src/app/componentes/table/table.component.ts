@@ -14,12 +14,13 @@ export interface HeadTable {
   fieldName: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type CustomItem<T = Options> = Record<Extract<keyof T, string>, any> &
   RecordOptions;
 
 export type Options = Record<string, string>;
 
-export type RecordOptions = {
+export interface RecordOptions {
   /** Opciones para el collapse */
   collapse?: CollapseOptions;
   /** Clase CSS personalizada de la fila */
@@ -30,26 +31,26 @@ export type RecordOptions = {
   innerHtml2?: string | SafeValue;
   /** Clase personalizada para cada columna de cada registro. Por orden */
   classes?: string[];
-};
+}
 
-export type CollapseOptions = {
+export interface CollapseOptions {
   /** HTML */
   inner: string;
   class?: string;
-};
+}
 
-export type ButtonOptions = {
+export interface ButtonOptions {
   title: string;
   class?: string;
   tooltip?: string;
   callback: (ev: CustomItem) => void;
-};
-export type ButtonsOptions = {
+}
+export interface ButtonsOptions {
   buttons: ButtonOptions[];
   class?: string;
-};
+}
 
-export type SelectOptions = {
+export interface SelectOptions {
   /** Key en el *data* que es desplegable *select* */
   selectedKey: string;
   /** Key en el *data* que contiene los *values* del desplegable @see {@link Selected}*/
@@ -58,12 +59,12 @@ export type SelectOptions = {
   class?: string;
   disabled?: boolean;
   callback?: (ev: SelectedChange) => void;
-};
+}
 
-export type SelectedChange = {
+export interface SelectedChange {
   item: CustomItem;
   selected: string;
-};
+}
 
 export const defaultTablePaginationParams = {
   limit: 10,
@@ -96,7 +97,8 @@ export class TableComponent {
   totalPages = signal<number>(0);
 
   protected onButtonsOptionsClick(item: CustomItem, button: ButtonOptions) {
-    item && button.callback?.(item);
+    if (!item) return;
+    button.callback?.(item);
   }
 
   protected onSelectOptionsClick(
@@ -105,17 +107,18 @@ export class TableComponent {
     event: Event,
   ) {
     const selected = (event.target as HTMLSelectElement).value;
-    item && select.callback?.({ item, selected });
+    if (!item) return;
+    select.callback?.({ item, selected });
   }
 
-  protected onNextChange(page: number) {
+  protected onNextChange() {
     // this.currentPage.set(page);
     const nextPage = this.gridArray() as PokemonList;
     if (!nextPage.next) return;
     this.nextPage.emit(nextPage.next);
   }
 
-  protected onPrevChange(page: number) {
+  protected onPrevChange() {
     // this.currentPage.set(page);
     const prevPage = this.gridArray() as PokemonList;
     if (!prevPage.previous) return;

@@ -1,7 +1,10 @@
 <div
   [ngClass]="class()"
   [class.hidden]="!!hidden()"
-  (click)="click.emit()">
+  (click)="click.emit()"
+  (keyup)="click.emit()"
+  role="button"
+  tabindex="0">
   @if (type() !== "checkbox" && type() !== "toggle") {}
   <div [class.mb-5]="!noAutoMargin">
     @if (type() === "text" || type() === "number" || type() === "date") {

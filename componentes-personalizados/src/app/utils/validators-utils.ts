@@ -4,7 +4,7 @@ export const getValidatorErrorMessage = (
   validatorName: string,
   validatorErrors?: ValidationErrors,
 ): string | undefined => {
-  let args = messages
+  const args = messages
     .get(validatorName)
     ?.validatorErrorsKey?.map((name) => validatorErrors?.[name]);
   return args
@@ -34,6 +34,7 @@ const messages = new Map<
   ['email', { message: 'Email must be a valid email address' }],
 ]);
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function stringFormat(template: string | undefined, ...args: any[]) {
   if (template) {
     return template.replace(/{(\d+)}/g, (match, index) => {

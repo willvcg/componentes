@@ -1,13 +1,19 @@
 <div
   class="modal"
   [ngClass]="{ show: showModal() }"
-  (click)="closeOnBackdrop($event)">
+  (click)="closeOnBackdrop($event)"
+  (keyup)="closeOnBackdrop($event)"
+  role="button"
+  tabindex="0">
   <div class="modal-content">
     <div class="modal-header">
       {{ title() }}
       <span
         class="modal-close"
         (click)="cancelModal()"
+        (keyup)="cancelModal()"
+        role="button"
+        tabindex="0"
         >✕</span
       >
     </div>
