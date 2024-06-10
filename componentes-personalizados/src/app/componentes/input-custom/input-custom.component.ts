@@ -127,6 +127,7 @@ export class InputCustomComponent
     });
 
     effect(() => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const errors = this.errors();
       if (this.ngControl?.control) {
         this.setError();
@@ -144,13 +145,18 @@ export class InputCustomComponent
       const hidden = this.hidden();
       if (hidden) {
         this.ngControl?.control?.clearValidators();
-        !this.noHideDisabled() && this.ngControl?.control?.disable();
+        if (!this.noHideDisabled()) this.ngControl?.control?.disable();
         // this.getterControlValid();
       }
       if (hidden === false) {
-        !this.noHideDisabled() && this.ngControl?.control?.enable();
-        this.required() &&
-          this.ngControl?.control?.addValidators(Validators.required);
+        const isNoHideDisabled = this.noHideDisabled();
+        const control = this.ngControl?.control;
+        if (!isNoHideDisabled && control) {
+          control.enable();
+        }
+        if (this.required() && control) {
+          control.addValidators(Validators.required);
+        }
         this.ngControl?.control?.updateValueAndValidity({
           onlySelf: true,
           emitEvent: false,
@@ -236,7 +242,9 @@ export class InputCustomComponent
   private onTouch() {
     if (!this.touch) {
       this.touch = true;
-      this._onTouch && this._onTouch();
+      if (this._onTouch) {
+        this._onTouch();
+      }
       this.touched.emit(true);
     }
     this.setError();
@@ -266,6 +274,7 @@ export class InputCustomComponent
     this.onTouch();
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onInput(e: EventTarget | null) {
     // if (this.type() === 'checkbox' || this.type() === 'toggle') {
     //   // this.value = (e as HTMLInputElement)?.checked ?? false
