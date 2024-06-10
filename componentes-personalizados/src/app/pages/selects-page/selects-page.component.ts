@@ -52,6 +52,6 @@ export class SelectsPageComponent {
   }
 
   protected selectedChange(event: Selected | undefined) {
-    console.log('event', event);
+    console.log(event);
   }
 }

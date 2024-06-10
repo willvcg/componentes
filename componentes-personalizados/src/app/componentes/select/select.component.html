@@ -23,7 +23,7 @@
     (blur)="onblur.emit()">
     @for (option of options(); track option) {
       <option
-        [selected]="selected() == option[0]"
+        [selected]="selected() === option[0]"
         [value]="option[0]">
         {{ option[1] }}
       </option>

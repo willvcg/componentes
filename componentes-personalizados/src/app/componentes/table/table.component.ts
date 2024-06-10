@@ -14,6 +14,7 @@ export interface HeadTable {
   fieldName: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type CustomItem<T = Options> = Record<Extract<keyof T, string>, any> &
   RecordOptions;
 
@@ -96,7 +97,8 @@ export class TableComponent {
   totalPages = signal<number>(0);
 
   protected onButtonsOptionsClick(item: CustomItem, button: ButtonOptions) {
-    item && button.callback?.(item);
+    if (!item) return;
+    button.callback?.(item);
   }
 
   protected onSelectOptionsClick(
@@ -105,17 +107,18 @@ export class TableComponent {
     event: Event,
   ) {
     const selected = (event.target as HTMLSelectElement).value;
-    item && select.callback?.({ item, selected });
+    if (!item) return;
+    select.callback?.({ item, selected });
   }
 
-  protected onNextChange(page: number) {
+  protected onNextChange() {
     // this.currentPage.set(page);
     const nextPage = this.gridArray() as PokemonList;
     if (!nextPage.next) return;
     this.nextPage.emit(nextPage.next);
   }
 
-  protected onPrevChange(page: number) {
+  protected onPrevChange() {
     // this.currentPage.set(page);
     const prevPage = this.gridArray() as PokemonList;
     if (!prevPage.previous) return;

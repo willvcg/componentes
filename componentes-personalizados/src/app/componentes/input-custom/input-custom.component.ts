@@ -1,5 +1,6 @@
 import { NgClass } from '@angular/common';
 import {
+  AfterViewInit,
   Component,
   DestroyRef,
   OnInit,
@@ -12,7 +13,7 @@ import {
   model,
   output,
   signal,
-  untracked, AfterViewInit,
+  untracked,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
@@ -33,7 +34,9 @@ import { Values } from '../select/select.component';
   templateUrl: './input-custom.component.html',
   styleUrl: './input-custom.component.css',
 })
-export class InputCustomComponent implements ControlValueAccessor, OnInit, AfterViewInit {
+export class InputCustomComponent
+  implements ControlValueAccessor, OnInit, AfterViewInit
+{
   id = input<string>(
     `input-${Math.floor((1 + Math.random()) * 0x10000).toString(16)}`,
   );
@@ -45,6 +48,7 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit, After
   class = input<string>('');
   classInput = input<string>('');
   style = input<string>('');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   value = model<any>('');
   values = input<Values>();
   hidden = input<boolean>();
@@ -68,7 +72,9 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit, After
 
   private destroyRef = inject(DestroyRef);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
   onChange = (_: any) => {};
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   _onTouch = () => {};
   touch!: boolean;
   noAutoMargin?: boolean;
@@ -271,15 +277,20 @@ export class InputCustomComponent implements ControlValueAccessor, OnInit, After
     this.onTouch();
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   writeValue(value: any): void {
     if (value === null || value === undefined || value === '')
       this.touch = false;
     this.value = value ?? '';
     //this.touch = true
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   registerOnTouched(fn: any): void {
     this._onTouch = fn;
   }

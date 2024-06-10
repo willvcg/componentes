@@ -31,7 +31,7 @@
   type="number"
   [(ngModel)]="inputNumber"
   [required]="true"
-  [validation]="inputNumber() != 5 ? { numberFive: true } : {}"
+  [validation]="inputNumber() !== 5 ? { numberFive: true } : {}"
   [errors]="{ required: 'Obligatorio', numberFive: 'Introduce el cinco' }"
   label="numero" />
 {{ inputNumber() }}
@@ -40,7 +40,7 @@
   [(ngModel)]="inputString"
   [required]="true"
   [validation]="
-    inputString().length != 5 ? { stringLongitud: true } : undefined
+    inputString().length !== 5 ? { stringLongitud: true } : undefined
   "
   [errors]="{
     required: 'Obligatorio',

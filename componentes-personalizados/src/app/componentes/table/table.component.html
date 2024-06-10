@@ -50,11 +50,11 @@
 @if (showPaginator()) {
   <div class="pagination">
     <!-- <button [disabled]="currentPage === 1" (click)="goToFirstPage()">Inicio</button> -->
-    <button (click)="onPrevChange(currentPage() - 1)">Anterior</button>
+    <button (click)="onPrevChange()">Anterior</button>
     <span>{{ currentPage() }} / {{ totalPages() }}</span>
     <button
       [disabled]="currentPage === totalPages"
-      (click)="onNextChange(currentPage() + 1)">
+      (click)="onNextChange()">
       Siguiente
     </button>
     <!-- <button [disabled]="currentPage === totalPages" (click)="goToLastPage()">Final</button> -->

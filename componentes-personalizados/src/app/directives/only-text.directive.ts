@@ -1,10 +1,4 @@
-import {
-  Directive,
-  ElementRef,
-  Host,
-  HostListener,
-  inject,
-} from '@angular/core';
+import { Directive, ElementRef, HostListener, inject } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 @Directive({

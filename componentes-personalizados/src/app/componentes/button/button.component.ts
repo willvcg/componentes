@@ -15,7 +15,7 @@ export class ButtonComponent {
   disabled = input<boolean>();
   onClick = output();
 
-  click(e: Event) {
+  click() {
     this.onClick.emit();
   }
 }

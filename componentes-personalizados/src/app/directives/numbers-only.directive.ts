@@ -10,7 +10,7 @@ export class NumbersOnlyDirective {
 
   element: ElementRef<HTMLInputElement> = inject(ElementRef);
 
-  @HostListener('input', ['$event']) onChangeInput(event: Event): void {
+  @HostListener('input', ['$event']) onChangeInput(): void {
     const value = this.element.nativeElement.value;
     const regex = /[^0-9]/g;
 
