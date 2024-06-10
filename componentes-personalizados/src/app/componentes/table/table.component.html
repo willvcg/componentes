@@ -1,7 +1,7 @@
 <table class="table">
   <thead>
     <tr>
-      @for (head of headArray(); track head.head) {
+      @for (head of headArray(); track head) {
         <th>{{ head.head }}</th>
       }
     </tr>
@@ -9,7 +9,7 @@
   <tbody>
     @for (item of dataArray(); track item) {
       <tr>
-        @for (head of headArray(); track head.head) {
+        @for (head of headArray(); track head) {
           <td>
             @switch (head.fieldName) {
               @case ("buttonsOptions") {
