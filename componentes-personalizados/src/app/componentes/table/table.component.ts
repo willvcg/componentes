@@ -19,7 +19,7 @@ export type CustomItem<T = Options> = Record<Extract<keyof T, string>, any> &
 
 export type Options = Record<string, string>;
 
-export type RecordOptions = {
+export interface RecordOptions {
   /** Opciones para el collapse */
   collapse?: CollapseOptions;
   /** Clase CSS personalizada de la fila */
@@ -30,26 +30,26 @@ export type RecordOptions = {
   innerHtml2?: string | SafeValue;
   /** Clase personalizada para cada columna de cada registro. Por orden */
   classes?: string[];
-};
+}
 
-export type CollapseOptions = {
+export interface CollapseOptions {
   /** HTML */
   inner: string;
   class?: string;
-};
+}
 
-export type ButtonOptions = {
+export interface ButtonOptions {
   title: string;
   class?: string;
   tooltip?: string;
   callback: (ev: CustomItem) => void;
-};
-export type ButtonsOptions = {
+}
+export interface ButtonsOptions {
   buttons: ButtonOptions[];
   class?: string;
-};
+}
 
-export type SelectOptions = {
+export interface SelectOptions {
   /** Key en el *data* que es desplegable *select* */
   selectedKey: string;
   /** Key en el *data* que contiene los *values* del desplegable @see {@link Selected}*/
@@ -58,12 +58,12 @@ export type SelectOptions = {
   class?: string;
   disabled?: boolean;
   callback?: (ev: SelectedChange) => void;
-};
+}
 
-export type SelectedChange = {
+export interface SelectedChange {
   item: CustomItem;
   selected: string;
-};
+}
 
 export const defaultTablePaginationParams = {
   limit: 10,

@@ -19,7 +19,7 @@ export class InputComponent implements ControlValueAccessor {
   private innerValue: any;
   private onChangeCallback: (_: any) => void = () => {};
   private onTouchedCallback: () => void = () => {};
-  private disabled: boolean = false;
+  private disabled = false;
 
   type = input<string>('text');
   placeholder = input<string>();

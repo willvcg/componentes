@@ -6,11 +6,13 @@ import {
   model,
   output,
   signal,
+  AfterContentInit,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export type Values<
   T extends string | number = string | number,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   V = any,
 > = Record<T, V>;
 /** Objeto {valor: Texto mostrar en el select} */
@@ -31,7 +33,7 @@ export type Selected2<T = Values> = keyof T extends number ? number : string;
     },
   ],
 })
-export class SelectComponent implements ControlValueAccessor {
+export class SelectComponent implements ControlValueAccessor, AfterContentInit {
   id = input<string>(
     `select-${Math.floor((1 + Math.random()) * 0x10000).toString(16)}`,
   );
@@ -55,7 +57,11 @@ export class SelectComponent implements ControlValueAccessor {
   onfocus = output<void>();
   onblur = output<void>();
 
-  onChange = (_: any) => {};
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onChange = (_: unknown) =>
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    {};
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   onTouch = () => {};
   touch!: boolean;
   options = signal<[string, string][] | null>(null);
@@ -73,12 +79,17 @@ export class SelectComponent implements ControlValueAccessor {
     this.selectedChange.emit(this.selected());
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   writeValue(value: any): void {
     this.selected.set(value || '');
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   registerOnTouched(fn: any): void {
     this.onTouch = fn;
   }

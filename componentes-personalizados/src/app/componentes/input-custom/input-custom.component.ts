@@ -12,7 +12,7 @@ import {
   model,
   output,
   signal,
-  untracked,
+  untracked, AfterViewInit,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
@@ -33,7 +33,7 @@ import { Values } from '../select/select.component';
   templateUrl: './input-custom.component.html',
   styleUrl: './input-custom.component.css',
 })
-export class InputCustomComponent implements ControlValueAccessor, OnInit {
+export class InputCustomComponent implements ControlValueAccessor, OnInit, AfterViewInit {
   id = input<string>(
     `input-${Math.floor((1 + Math.random()) * 0x10000).toString(16)}`,
   );

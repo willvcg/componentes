@@ -4,7 +4,7 @@ export const getValidatorErrorMessage = (
   validatorName: string,
   validatorErrors?: ValidationErrors,
 ): string | undefined => {
-  let args = messages
+  const args = messages
     .get(validatorName)
     ?.validatorErrorsKey?.map((name) => validatorErrors?.[name]);
   return args

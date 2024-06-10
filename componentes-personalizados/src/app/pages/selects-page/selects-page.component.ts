@@ -47,7 +47,7 @@ export class SelectsPageComponent {
 
   onSubmit() {
     if (this.myForm.valid) {
-      const selectedDocumento = this.myForm.value.documento;
+      // const selectedDocumento = this.myForm.value.documento;
     }
   }
 

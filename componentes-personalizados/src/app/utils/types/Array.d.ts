@@ -1,6 +1,6 @@
 interface Array<T> {
   /** Elimina items duplicados */
-  removeDuplicates(): Array<T>;
+  removeDuplicates(): T[];
   /** Ejecuta funciones en cadena */
-  pipeMaligno(...args): Array<T>;
+  pipeMaligno(...args): T[];
 }
