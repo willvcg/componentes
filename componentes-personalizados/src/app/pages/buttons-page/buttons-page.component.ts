@@ -13,9 +13,10 @@ export class ButtonsPageComponent {
   //#region Button
   title = signal<string>('Create');
   class = signal<string>('');
+  text = signal<string>('Button');
   //#endregion
 
   protected clickButton() {
-    console.log('click');
+    this.text.set('Clicked');
   }
 }

@@ -51,10 +51,10 @@ export class DirectivesPagesComponent {
 
   //#region DoubleClickDirective
   singleHandler(e: MouseEvent) {
-    console.log(e, 'Single click');
+    this.text = e.AT_TARGET.valueOf().toString();
   }
 
   doubleHandler(e: MouseEvent) {
-    console.log(e, 'Double click');
+    this.text = e.AT_TARGET.valueOf().toString();
   }
 }
